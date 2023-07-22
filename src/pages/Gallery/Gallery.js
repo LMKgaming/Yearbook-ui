@@ -100,7 +100,11 @@ const Gallery = () => {
             const response = await getServerData()
             if (response) return dispatch(updateDataGallery(response))
         }
-        getData()
+        window.addEventListener('load', getData)
+
+        return () => {
+            window.removeEventListener('load', getData)
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -120,6 +124,7 @@ const Gallery = () => {
                 <PopupImage
                     index={id.split('&')[1]}
                     id={id.split('&')[0]}
+                    dataServer={dataServer}
                 />
             )}
             <div className={cx('wrapper')} ref={wrapperRef}>
@@ -141,7 +146,10 @@ const Gallery = () => {
                         />
                     </div>
                 </div>
-                {isList ? (
+                {dataServer.length === 0 ? <div style={{
+                    color: '#fff',
+                    fontSize: '5rem'
+                }}>Loading time</div> : isList ? (
                     <GalleryList contentHeight={contentHeight} data={dataServer} />
                 ) : (
                     <GalleryGrid contentHeight={contentHeight} data={dataServer} />

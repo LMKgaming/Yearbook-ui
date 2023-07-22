@@ -42,7 +42,7 @@ const GalleryList = ({ data = [], contentHeight = '100%' }) => {
                     key={data.Id}
                     index={data.Index}
                     name={data.Name}
-                    image={data.WebpURL || data.URL}
+                    image={data.URLWebp || data.URL}
                     id={data.Id}
                     size={data.Size / 1024 ** 2}
                     pressP={pressP}

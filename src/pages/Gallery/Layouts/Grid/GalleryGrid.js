@@ -80,7 +80,7 @@ const GalleryGrid = ({ data = [], contentHeight = '100%' }) => {
                         key={data.Id}
                         index={data.Index}
                         name={data.Name}
-                        image={data.WebpURL || data.URL}
+                        image={data.URLWebp || data.URL}
                         id={data.Id}
                         handleContextMenu={handleContextMenu}
                     />

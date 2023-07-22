@@ -20,15 +20,13 @@ import {
 import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
 import config from '~/config';
-import { useSelector } from 'react-redux';
-import { dataServerGallery } from '~/redux/selector';
 import images from '~/assets/images';
 // import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-const PopupImage = ({ id, index }) => {
-    const dataServer = useSelector(dataServerGallery)
+const PopupImage = ({ id, index, dataServer = [] }) => {
+    
     const dataCurrent = index ? dataServer[index - 1] : dataServer.find(data => data.Id === id)
     const [showInfoImage, setShowInfoImage] = useState(false);
     const [naturalSize, setNaturalSize] = useState({
@@ -109,7 +107,7 @@ const PopupImage = ({ id, index }) => {
                     className={cx('main-content-image-box')}
                     style={{ width: imageSize.width, height: imageSize.height }}
                 >
-                    <Image className={cx('main-content-image')} src={dataCurrent?.URL || images.noImage} callbackNaturalSize={callbackNaturalSize} />
+                    <Image className={cx('main-content-image')} src={dataCurrent?.URLWebp || dataCurrent?.URL || images.noImage} callbackNaturalSize={callbackNaturalSize} />
                 </div>
                 {showInfoImage && (
                     <div className={cx('content-info-contain')}>
