@@ -1,0 +1,40 @@
+@import '../GlobalStyles/Mixin.scss';
+
+.group-snow {
+    position: absolute;
+    top: calc(var(--header-height) * 80 / 100 + 5px * 2 + var(--header-margin));
+    left: calc(var(--header-margin) + 5px);
+    display: flex;
+
+    .snow-btn {
+        margin-right: 20px;
+        z-index: 10;
+        color: #ccc;
+
+        .snow-icon {
+            font-size: var(--snow-icon-size);
+
+            @include mobile {
+                font-size: calc(var(--snow-icon-size) * 80 / 100);
+            }
+
+            @include mini-tablet {
+                font-size: calc(var(--snow-icon-size) * 80 / 100);
+            }
+        }
+
+        &.active {
+            color: #00ff00;
+        }
+    }
+
+    @include mobile {
+        top: calc(var(--header-height) * 60 / 100 + 5px * 2 + var(--header-margin) / 3);
+        left: calc(var(--header-margin) / 3)
+    }
+
+    @include mini-tablet {
+        top: calc(var(--header-height) * 60 / 100 + 5px * 2 + var(--header-margin) / 3);
+        left: calc(var(--header-margin) / 3)
+    }
+}

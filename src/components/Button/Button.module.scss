@@ -1,0 +1,53 @@
+.wrapper {
+    // width: 100%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.name {
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.left-icon {
+    margin-right: 5px;
+}
+
+.right-icon {
+    margin-left: 5px;
+}
+
+//Button style
+.rounded {
+    border-radius: 999px;
+}
+
+.border {
+    border: 2px solid;
+}
+
+.disabled {
+    pointer-events: none;
+    user-select: none;
+    color: rgba(51, 51, 51, 0.329);
+    border-color: rgba(0, 0, 255, 0.233);
+}
+
+//Button size
+.small {
+    min-width: 88px;
+    padding: 4px 16px;
+}
+
+.medium {
+    padding: 5px 15px;
+}
+
+.large {
+    min-width: 140px;
+    padding: 14px 16px;
+}

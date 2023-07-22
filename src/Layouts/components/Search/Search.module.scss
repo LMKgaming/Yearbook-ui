@@ -1,0 +1,58 @@
+@import '../../../components/GlobalStyles/Mixin.scss';
+
+.search-box {
+    min-width: 40%;
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+
+    @include mobile {
+        position: absolute;
+    }
+
+    @include mini-tablet {
+        position: absolute;
+    }
+}
+
+.search-input {
+    height: 35px;
+    width: 100%;
+    background-color: transparent;
+    border-radius: 15px;
+    border: 2px dashed #ccc;
+    color: #ccc;
+    padding: 0 15px;
+    transition: all 0.5s ease-in;
+    font-size: 1.6rem;
+
+    &:hover {
+        border: 2px solid #ffff00;
+    }
+
+    &:focus {
+        border: 2px solid #00ff00;
+    }
+
+    @include mobile {
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    @include mini-tablet {
+        visibility: hidden;
+        opacity: 0;
+    }
+}
+
+@include mobile {
+    .search-icon {
+        color: #ccc;
+    }
+}
+
+@include mini-tablet {
+    .search-icon {
+        color: #ccc;
+    }
+}

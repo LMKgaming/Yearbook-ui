@@ -1,0 +1,102 @@
+@import '../../components/GlobalStyles/Mixin.scss';
+
+.default-layout {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    max-height: var(--header-height);
+    position: fixed;
+    display: flex;
+    min-width: 100%;
+    z-index: 10;
+    background-color: var(--main-color);
+    border-bottom: 1px dotted #ccc;
+
+    .logo-btn {
+        margin: 0 var(--header-margin);
+        max-width: var(--header-height);
+        max-height: var(--header-height);
+
+        @include mobile {
+            margin: 0 0 0 calc(var(--header-margin) / 3);
+        }
+
+        @include mini-tablet {
+            margin: 0 0 0 calc(var(--header-margin) / 3);
+        }
+    }
+
+    .logo-content {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo {
+        max-height: calc(var(--header-height) * 80 / 100);
+
+        @include mobile {
+            max-height: calc(var(--header-height) * 60 / 100);
+        }
+
+        @include mini-tablet {
+            max-height: calc(var(--header-height) * 60 / 100);
+        }
+    }
+
+    .header-middle-group {
+        display: flex;
+        flex: 1;
+        margin: 0 10%;
+
+        @include mobile {
+            margin: 0 1%;
+            position: relative;
+        }
+
+        @include mini-tablet {
+            margin: 0 1%;
+            position: relative;
+        }
+    }
+
+    .header-right-info {
+        color: #ccc;
+        display: flex;
+        align-items: center;
+        font-size: 1.8rem;
+        padding-left: 0;
+
+        @include mobile {
+            padding-right: calc(var(--header-margin) / 3 + 5px);
+        }
+
+        @include mini-tablet {
+            padding-right: calc(var(--header-margin) / 3 + 5px);
+        }
+    }
+}
+
+.main {
+    --margin-top: calc(var(--header-height) * 80 / 100 + 5px * 2);
+    margin-top: var(--margin-top);
+    height: calc(100% - var(--margin-top));
+    overflow: hidden;
+    background-color: transparent;
+    position: relative;
+
+    @include mobile {
+        --margin-top-mobile: calc(var(--header-height) * 60 / 100 + 5px * 2);
+        margin-top: var(--margin-top-mobile);
+        height: calc(100% - var(--margin-top-mobile));
+    }
+
+    @include mini-tablet {
+        --margin-top-mobile: calc(var(--header-height) * 60 / 100 + 5px * 2);
+        margin-top: var(--margin-top-mobile);
+        height: calc(100% - var(--margin-top-mobile));
+    }
+}

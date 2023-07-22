@@ -1,0 +1,256 @@
+@import '../../components/GlobalStyles/Mixin.scss';
+
+.wrapper {
+    height: 100%;
+    display: grid;
+    overflow: overlay;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 60% 40%;
+
+    @include mobile {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+    }
+
+    @include mini-tablet {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+    }
+
+    @include tablet {
+        grid-template-columns: 100%;
+        grid-template-rows: 1fr;
+    }
+}
+
+.left {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+
+    @include mobile {
+        grid-template-columns: 100%;
+        grid-auto-rows: calc(var(--image-contact-size) * 60 / 100);
+        row-gap: 15px;
+    }
+    
+    @include mini-tablet {
+        grid-template-columns: 100%;
+        grid-auto-rows: calc(var(--image-contact-size) * 60 / 100);
+        row-gap: 15px;
+    }
+
+    @include tablet {
+        grid-auto-rows: minmax(calc(2.2rem * 1.2), calc(var(--image-contact-size) * 80 / 100 * 1.2));
+    }
+
+    .member-title {
+        grid-column-start: 1;
+        grid-column-end: span 3;
+        justify-self: center;
+        align-self: center;
+        padding: 0;
+        font-size: 2.5rem;
+        color: #ccc;
+        font-weight: 800;
+        text-decoration: underline;
+        text-rendering: optimizeSpeed;
+        text-transform: uppercase;
+
+        @include mobile {
+            grid-column-end: span 1;
+            align-self: center;
+            text-transform: capitalize;
+            font-size: 1.5rem;
+            font-weight: 400;
+        }
+
+        @include mini-tablet {
+            grid-column-end: span 1;
+            align-self: center;
+            text-transform: capitalize;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        @include tablet {
+            font-size: 2.2rem;
+        }
+    }
+
+    .member-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        @include mobile {
+            margin-left: calc(var(--header-margin) / 3 + 5px + var(--snow-icon-size) * 80 / 100 * 2);
+            display: grid;
+            grid-template-columns: 20% 80%;
+            row-gap: 5px;
+        }
+
+        @include mini-tablet {
+            margin-left: calc(var(--header-margin) / 3 + 5px + var(--snow-icon-size) * 80 / 100 * 2);
+            display: grid;
+            grid-template-columns: 40% 60%;
+            row-gap: 5px;
+        }
+    }
+
+    .member-image-box {
+        height: var(--image-contact-size);
+        width: var(--image-contact-size);
+        border-radius: 50%;
+        border: 5px solid #ccc;
+        overflow: hidden;
+
+        @include mobile {
+            justify-self: center;
+            grid-row-start: 1;
+            grid-row-end: span 2;
+            height: calc(var(--image-contact-size) * 60 / 100);
+            width: calc(var(--image-contact-size) * 60 / 100);
+        }
+
+        @include mini-tablet {
+            justify-self: center;
+            grid-row-start: 1;
+            grid-row-end: span 2;
+            height: calc(var(--image-contact-size) * 60 / 100);
+            width: calc(var(--image-contact-size) * 60 / 100);
+        }
+        
+        @include tablet {
+            width: calc(var(--image-contact-size) * 80 / 100);
+            height: calc(var(--image-contact-size) * 80 / 100);
+        }
+
+        .member-image {
+            height: 100%;
+        }
+    }
+
+    .member-name {
+        font-size: 2.8rem;
+        color: #ccc;
+        margin: 0 auto;
+
+        @include mobile {
+            font-size: 2rem;
+            align-self: end;
+        }
+
+        @include mini-tablet {
+            font-size: 2rem;
+            align-self: end;
+        }
+
+        @include tablet {
+            font-size: 2.2rem;
+        }
+    }
+
+    .member-role {
+        font-size: 2rem;
+        color: #ccc;
+        margin: 0 auto;
+
+        @include mobile {
+            font-size: 1.8rem;
+            align-self: start;
+        }
+
+        @include mini-tablet {
+            font-size: 1.8rem;
+            align-self: start;
+        }
+    }
+}
+
+.right {
+    padding: 50px 20px;
+
+    @include mobile {
+        padding: 40px 20px;
+    }
+
+    @include mini-tablet {
+        padding: 40px 20px;
+    }
+
+    @include tablet {
+        padding: 0 40px 20px;
+    }
+
+    .text {
+        font-size: 1.8rem;
+        color: #ccc;
+
+        +.text {
+            margin-bottom: 0;
+        }
+
+        +.gap {
+            border: 1px solid #333;
+            margin: 20px 0;
+        }
+
+        +.gg-drive {
+            display: inline-block;
+        }
+    }
+}
+
+.group-contact-info {
+    --padding-top-default: 20px;
+
+    padding: var(--padding-top-default) 50px;
+
+    @include mobile {
+        padding: calc(var(--padding-top-default) / 2) calc(20px + 20px);
+    }
+
+    @include mini-tablet {
+        padding: calc(var(--padding-top-default) / 2) calc(20px + 20px);
+    }
+
+    @include tablet {
+        padding: var(--padding-top-default) calc(40px + 20px);
+    }
+
+    .contact-text, .contact-btn {
+        font-size: 1.4rem;
+        padding: 0;
+        margin-bottom: 15px;
+        color: #ccc;
+    }
+
+    .contact-btn {
+        justify-content: left;
+    }
+}
+
+.logo {
+    max-width: 50%;
+    margin-bottom: 15px;
+    margin-right: 15px;
+    justify-self: end;
+    align-self: end;
+
+    @include mobile {
+        justify-self: center;
+        align-self: center;
+    }
+
+    @include mini-tablet {
+        justify-self: center;
+        align-self: center;
+    }
+
+    @include tablet {
+        max-width: 40%;
+        justify-self: center;
+        align-self: center;
+    }
+}
