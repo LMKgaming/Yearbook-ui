@@ -21,13 +21,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
 import config from '~/config';
 import images from '~/assets/images';
+import Loader from '~/components/Loader';
 // import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const PopupImage = ({ id, index, dataServer = [] }) => {
-    
-    const dataCurrent = index ? dataServer[index - 1] : dataServer.find(data => data.Id === id)
+    const dataCurrent = index ? dataServer[index - 1] : dataServer.find((data) => data.Id === id);
+    console.log(dataCurrent);
     const [showInfoImage, setShowInfoImage] = useState(false);
     const [naturalSize, setNaturalSize] = useState({
         width: 0,
@@ -37,6 +38,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
         width: 0,
         height: 0,
     });
+    const [isLoading, setIsLoading] = useState(true);
     const mainContentRef = useRef();
     const { width, height, isHorizontal } = useViewport();
 
@@ -47,7 +49,14 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
         alert('This feature is being in progress !!');
     };
 
-    const callbackNaturalSize = (width, height) => setNaturalSize({ width, height });
+    const handleClickNavBtn = () => setIsLoading(true);
+
+    const callbackNaturalSize = (width, height) => {
+        setNaturalSize({ width, height });
+        setIsLoading(false);
+    };
+
+    console.log();
 
     useEffect(() => {
         if (naturalSize.width === 0 || naturalSize.height === 0) return;
@@ -86,7 +95,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                             to={config.routes.gallery}
                         />
                     ))}
-                    <Text className={cx('text')} content={dataCurrent?.Name || "Missing Name"} />
+                    <Text className={cx('text')} content={dataCurrent?.Name || 'Missing Name'} />
                 </div>
                 <div className={cx('group-right')}>
                     <Button
@@ -102,12 +111,35 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                 </div>
             </div>
             <div className={cx('main-content')} ref={mainContentRef}>
-                <Button className={cx('button', 'content-btn-l')} name={<FontAwesomeIcon icon={faChevronLeft} />} />
+                {+dataCurrent.Index !== 1 && (
+                    <Button
+                        className={cx('button', 'content-btn-l')}
+                        name={<FontAwesomeIcon icon={faChevronLeft} />}
+                        to={config.routes.galleryItem.replace(
+                            ':id',
+                            `${dataServer[+dataCurrent?.Index].Id}&${+dataCurrent?.Index - 1}`,
+                        )}
+                        onClick={handleClickNavBtn}
+                    />
+                )}
+                {isLoading && (
+                    <div className={cx('popup-loader')}>
+                        <Loader />
+                    </div>
+                )}
                 <div
                     className={cx('main-content-image-box')}
-                    style={{ width: imageSize.width, height: imageSize.height }}
+                    style={{
+                        width: imageSize.width,
+                        height: imageSize.height,
+                        visibility: !isLoading ? 'visible' : 'hidden',
+                    }}
                 >
-                    <Image className={cx('main-content-image')} src={dataCurrent?.URLWebp || dataCurrent?.URL || images.noImage} callbackNaturalSize={callbackNaturalSize} />
+                    <Image
+                        className={cx('main-content-image')}
+                        src={dataCurrent?.URLWebp || dataCurrent?.URL || images.noImage}
+                        callbackNaturalSize={callbackNaturalSize}
+                    />
                 </div>
                 {showInfoImage && (
                     <div className={cx('content-info-contain')}>
@@ -140,7 +172,17 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                         </div>
                     </div>
                 )}
-                <Button className={cx('button', 'content-btn-r')} name={<FontAwesomeIcon icon={faChevronRight} />} />
+                {+dataCurrent.Index !== dataServer.length && (
+                    <Button
+                        className={cx('button', 'content-btn-r')}
+                        name={<FontAwesomeIcon icon={faChevronRight} />}
+                        to={config.routes.galleryItem.replace(
+                            ':id',
+                            `${dataServer[+dataCurrent?.Index].Id}&${+dataCurrent?.Index + 1}`,
+                        )}
+                        onClick={handleClickNavBtn}
+                    />
+                )}
             </div>
             <div className={cx('bottom-action')}>
                 <Button className={cx('button')} name={<FontAwesomeIcon icon={faMinus} />} />

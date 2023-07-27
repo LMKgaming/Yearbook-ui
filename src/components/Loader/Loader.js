@@ -5,10 +5,12 @@ const cx = classNames.bind(styles);
 
 function Loader() {
     return (
-        <>
-            <div className={cx('loader-top')}></div>
-            <div className={cx('loader-bottom')}></div>
-        </>
+        <div className={cx('loader')}>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
     );
 }
 

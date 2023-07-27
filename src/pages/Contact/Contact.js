@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faGoogleDrive } from '@fortawesome/free-brands-svg-icons';
 import Button from '~/components/Button';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
+import { motion } from 'framer-motion';
 
 const cx = classNames.bind(styles);
 
@@ -48,8 +49,16 @@ const contactData = [
 
 const Contact = () => {
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('left')}>
+        <motion.div
+            className={cx('wrapper')}
+            initial={{ opacity: 0.5, x: '100vw' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0.5, x: '100vw' }}
+            transition={{ duration: 0.25 }}
+        >
+            <div
+                className={cx('left')}
+            >
                 <Text className={cx('member-title')} content={'Cảm ơn các cộng tác viên đã hỗ trợ dự án'} />
                 {teamData.map((data, index) => (
                     <div key={index} className={cx('member-info')}>
@@ -61,7 +70,9 @@ const Contact = () => {
                     </div>
                 ))}
             </div>
-            <div className={cx('right')}>
+            <div
+                className={cx('right')}
+            >
                 <Text className={cx('text', 'summary')} content={'Thống kê'} />
                 <Text className={cx('text', 'gap')} content={''} />
                 <Text className={cx('text', 'summary')} content={'Publish: 03/07/2023'} />
@@ -69,7 +80,9 @@ const Contact = () => {
                 <Text className={cx('text', 'summary', 'gg-drive')} content={'Nguồn: Google Drive'} />
                 <FontAwesomeIcon icon={faGoogleDrive} color="#ccc" />
             </div>
-            <div className={cx('group-contact-info')}>
+            <div
+                className={cx('group-contact-info')}
+            >
                 <Text className={cx('contact-text')} content={'Mọi thắc mắc xin liên hệ về địa chi:'} />
                 {contactData.map((data, index) => (
                     <Button
@@ -88,7 +101,7 @@ const Contact = () => {
                 />
             </div>
             <Image className={cx('logo')} src={images.kysg} />
-        </div>
+        </motion.div>
     );
 };
 

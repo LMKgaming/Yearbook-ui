@@ -188,7 +188,9 @@
 }
 
 .main-content-image-box {
+    overflow: hidden;
     display: flex;
+    border-radius: 8px;
 }
 
 .main-content-image {
@@ -302,4 +304,18 @@
         padding: 2px 5px;
         margin: 5px auto;
     }
+}
+
+//Loader
+.loader, .popup-loader {
+    margin: 0 auto;
+    width: 80px;
+    height: 80px;
+}
+
+.popup-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

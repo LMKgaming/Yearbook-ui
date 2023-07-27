@@ -19,6 +19,7 @@ const Video = forwardRef(({ src, alt = 'video', className, customFallback, callb
             })}
             ref={ref}
             src={fallback || src}
+            crossOrigin='true'
             onCanPlay={(e) => callbackResolution(e.target.videoWidth, e.target.videoHeight)}
             {...props}
             onError={handleError}

@@ -11,9 +11,10 @@ import GalleryList from './Layouts/List';
 import { useParams } from 'react-router-dom';
 import PopupImage from './PopupImage';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataServerGallery, typeShowGallery } from '~/redux/selector';
+import { galleryOption } from '~/redux/selector';
 import { changeTypeGallery, updateDataGallery } from '~/redux/defaultSettingsSlice';
 import { getServerData } from '~/services/service';
+import Loader from '~/components/Loader';
 
 const cx = classNames.bind(styles);
 
@@ -82,8 +83,8 @@ const cx = classNames.bind(styles);
 // ];
 
 const Gallery = () => {
-   const dataServer = useSelector(dataServerGallery)
-   const isList = useSelector(typeShowGallery);
+    const { dataServer, list: isList } = useSelector(galleryOption);
+    const [isLoading, setIsLoading] = useState(true);
     const [contentHeight, setContentHeight] = useState(0);
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -97,16 +98,19 @@ const Gallery = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getServerData()
-            if (response) return dispatch(updateDataGallery(response))
-        }
-        window.addEventListener('load', getData)
-
-        return () => {
-            window.removeEventListener('load', getData)
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+            const response = await getServerData();
+            if (response) {
+                setIsLoading(false);
+                dispatch(updateDataGallery(response));
+            }
+        };
+        setIsLoading(true);
+        if (dataServer.length !== 0) {
+            setIsLoading(false);
+            return;
+        } else getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         // console.log(wrapperRef);
@@ -120,14 +124,11 @@ const Gallery = () => {
 
     return (
         <>
-            {id && (
-                <PopupImage
-                    index={id.split('&')[1]}
-                    id={id.split('&')[0]}
-                    dataServer={dataServer}
-                />
-            )}
-            <div className={cx('wrapper')} ref={wrapperRef}>
+            {id && <PopupImage index={id.split('&')[1]} id={id.split('&')[0]} dataServer={dataServer} />}
+            <div
+                className={cx('wrapper')}
+                ref={wrapperRef}
+            >
                 <Text className={cx('content-title')} content={'For 12A7-Er'} />
                 <div ref={actionRef} className={cx('action-group')}>
                     <div className={cx('sort-action')}>
@@ -146,10 +147,11 @@ const Gallery = () => {
                         />
                     </div>
                 </div>
-                {dataServer.length === 0 ? <div style={{
-                    color: '#fff',
-                    fontSize: '5rem'
-                }}>Loading time</div> : isList ? (
+                {isLoading ? (
+                    <div className={cx('loader')}>
+                        <Loader />
+                    </div>
+                ) : isList ? (
                     <GalleryList contentHeight={contentHeight} data={dataServer} />
                 ) : (
                     <GalleryGrid contentHeight={contentHeight} data={dataServer} />

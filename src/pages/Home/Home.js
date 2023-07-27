@@ -101,10 +101,10 @@ const Home = () => {
     return (
         <motion.div
             className={cx('wrapper')}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0.5, x: '-100vw' }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0.5, x: '-100vw' }}
+            transition={{ duration: 0.25 }}
         >
             <div className={cx('auto-slide-image')}>
                 <div ref={autoSlide} className={cx('slide-container')}>

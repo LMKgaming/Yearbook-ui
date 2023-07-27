@@ -105,7 +105,7 @@ const PopupVideo = ({ id, name, video }) => {
                     className={cx('main-content-video-box')}
                     style={{ width: videoSize.width, height: videoSize.height }}
                 >
-                    <Video className={cx('main-content-video')} src={video} callbackResolution={callbackResolution}/>
+                    <Video className={cx('main-content-video')} src={video} callbackResolution={callbackResolution} />
                     <div className={cx('controls-group')}>
                         <div className={cx('time-line')}>
 

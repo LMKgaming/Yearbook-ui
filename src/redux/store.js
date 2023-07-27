@@ -9,7 +9,6 @@ const persistConfig = {
     version: 1,
     storage,
     stateReconciler: autoMergeLevel2,
-    whitelist: ['auth'],
 };
 
 // const rootReducer = combineReducers({
