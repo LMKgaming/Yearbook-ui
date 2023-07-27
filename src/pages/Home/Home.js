@@ -7,6 +7,7 @@ import config from '~/config';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useViewport } from '~/hooks';
+import { motion } from 'framer-motion';
 
 const cx = classNames.bind(styles);
 
@@ -34,7 +35,7 @@ const slideImageData = [
 ];
 
 const Home = () => {
-    const viewport = useViewport()
+    const viewport = useViewport();
     const navigate = useNavigate();
     const autoSlide = useRef();
     const [imageSize, setImageSize] = useState(0);
@@ -51,6 +52,12 @@ const Home = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    console.log(imageSize);
+
+    useEffect(() => {
+        setImageSize(autoSlide.current.scrollWidth / autoSlide.current.childNodes.length);
+    }, [viewport.width]);
+
     useEffect(() => {
         let element = autoSlide.current;
 
@@ -58,12 +65,14 @@ const Home = () => {
             setImageSize(autoSlide.current.scrollWidth / autoSlide.current.childNodes.length);
         };
         element.childNodes[element.childNodes.length - 1].addEventListener('load', listener);
+        element.addEventListener('load', listener);
 
         // Remove the event listener when component unmounts
         return () => {
             element.childNodes[element.childNodes.length - 1].removeEventListener('load', listener);
+            element.removeEventListener('load', listener);
         };
-    }, [viewport.width]);
+    }, []);
 
     useEffect(() => {
         let position = 0;
@@ -90,7 +99,13 @@ const Home = () => {
     }, [imageSize]);
 
     return (
-        <div className={cx('wrapper')}>
+        <motion.div
+            className={cx('wrapper')}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className={cx('auto-slide-image')}>
                 <div ref={autoSlide} className={cx('slide-container')}>
                     {slideImageData.map((data) => (
@@ -100,7 +115,7 @@ const Home = () => {
             </div>
             <Text content={'Welcome to gallery'} className={cx('slide-intro')} />
             <Text content={'>>> Press Enter <<<'} className={cx('slide-enter')} to={config.routes.gallery} />
-        </div>
+        </motion.div>
     );
 };
 
