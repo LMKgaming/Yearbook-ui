@@ -1,12 +1,12 @@
-import classNames from "classnames/bind";
+import classNames from 'classnames/bind';
+import styles from './Text.module.scss';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-import styles from './Text.module.scss'
-import { Link } from "react-router-dom";
+const cx = classNames.bind(styles);
 
-const cx = classNames.bind(styles)
-
-function Text({content, to, className, disabled, ...rest}) {
-    let Type = 'p'
+function Text({ content, to, className, disabled, isMotional = false, ...rest }) {
+    let Type = 'p';
     const props = {
         ...rest,
     };
@@ -16,6 +16,8 @@ function Text({content, to, className, disabled, ...rest}) {
         props.to = to;
     }
 
+    const MotionCustom = motion(Type);
+
     if (disabled) {
         Object.keys(props).forEach((key) => {
             if (key.startsWith('on') && typeof props[key] === 'function') {
@@ -24,15 +26,23 @@ function Text({content, to, className, disabled, ...rest}) {
         });
     }
 
-    const classes = cx('wrapper',{
-        [className]: className
-    })
+    const classes = cx('wrapper', {
+        [className]: className,
+    });
 
     return (
-        <Type className={classes} {...props}>
-            {content}
-        </Type>
-    )
+        <>
+            {isMotional ? (
+                <MotionCustom className={classes} {...props}>
+                    {content}
+                </MotionCustom>
+            ) : (
+                <Type className={classes} {...props}>
+                    {content}
+                </Type>
+            )}
+        </>
+    );
 }
 
 export default Text;

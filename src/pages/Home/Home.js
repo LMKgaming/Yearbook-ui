@@ -114,7 +114,16 @@ const Home = () => {
                 </div>
             </div>
             <Text content={'Welcome to gallery'} className={cx('slide-intro')} />
-            <Text content={'>>> Press Enter <<<'} className={cx('slide-enter')} to={config.routes.gallery} />
+            <Text
+                content={'>>> Press Enter <<<'}
+                className={cx('slide-enter')}
+                to={config.routes.gallery}
+                isMotional={true}
+                initial={{ scale: [0.8, 0.85, 0.9] }}
+                animate={{ scale: [1, 1.05, 1.1, 1.15] }}
+                exit={{ scale: [0.9, 0.95] }}
+                transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.1, repeatType: 'reverse' }}
+            />
         </motion.div>
     );
 };
