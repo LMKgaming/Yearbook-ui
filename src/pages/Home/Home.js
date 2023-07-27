@@ -52,7 +52,7 @@ const Home = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    console.log(imageSize);
+    // console.log(imageSize);
 
     useEffect(() => {
         setImageSize(autoSlide.current.scrollWidth / autoSlide.current.childNodes.length);

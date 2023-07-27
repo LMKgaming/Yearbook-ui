@@ -1,12 +1,12 @@
 import classNames from 'classnames/bind';
 import styles from './Text.module.scss';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 const cx = classNames.bind(styles);
 
-function Text({ content, to, className, disabled, isMotional = false, ...rest }) {
+function Text({ content, to, className, disabled, ...rest }) {
     let Type = 'p';
+
     const props = {
         ...rest,
     };
@@ -15,8 +15,6 @@ function Text({ content, to, className, disabled, isMotional = false, ...rest })
         Type = Link;
         props.to = to;
     }
-
-    const MotionCustom = motion(Type);
 
     if (disabled) {
         Object.keys(props).forEach((key) => {
@@ -31,17 +29,9 @@ function Text({ content, to, className, disabled, isMotional = false, ...rest })
     });
 
     return (
-        <>
-            {isMotional ? (
-                <MotionCustom className={classes} {...props}>
-                    {content}
-                </MotionCustom>
-            ) : (
-                <Type className={classes} {...props}>
-                    {content}
-                </Type>
-            )}
-        </>
+        <Type className={classes} {...props}>
+            {content}
+        </Type>
     );
 }
 
