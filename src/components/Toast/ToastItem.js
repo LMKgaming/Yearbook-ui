@@ -39,7 +39,7 @@ const ToastItem = ({
 
     const handleClickClose = (timeoutId) => {
         clearTimeout(timeoutId);
-        callbackAnimationEnd(id);
+        callbackAnimationEnd(id, false);
     };
 
     useEffect(() => {

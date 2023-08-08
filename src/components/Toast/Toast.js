@@ -25,8 +25,8 @@ const Toast = ({ stackToast = false, ...props }) => {
     const [toastData, setToastData] = useState([]);
     const containerRef = useRef();
 
-    const handleCallbackAnimationEnd = (id) => {
-        document.dispatchEvent(closeEvent)
+    const handleCallbackAnimationEnd = (id, isAutomatic = true) => {
+        if (!isAutomatic) document.dispatchEvent(closeEvent)
         setToastData((prev) => prev.filter((p) => p.id !== id));
     };
 

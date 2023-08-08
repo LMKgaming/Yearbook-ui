@@ -15,6 +15,7 @@ import VideoList from './Layouts/List';
 import VideoGrid from './Layouts/Grid';
 import { changeTypeVideo } from '~/redux/defaultSettingsSlice';
 import { motion } from 'framer-motion';
+import { toastConfig } from '~/components/Toast';
 // import { toastConfig } from '~/components/Toast';
 
 const cx = classNames.bind(styles);
@@ -39,6 +40,10 @@ const Video = () => {
     const handleClickChangeShow = () => {
         dispatch(changeTypeVideo(!isList));
     };
+
+    useEffect(() => {
+        toastConfig.percentToast('Test', 'test', 50, true)
+    }, [])
 
     useEffect(() => {
         // toastConfig.successToast('Test','test', 5000)

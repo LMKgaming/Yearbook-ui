@@ -80,6 +80,7 @@ const GalleryList = ({ contentHeight = '100%' }) => {
         }, 5000);
 
         const listener = (e) => {
+            console.log(e)
             clearTimeout(timoutId)
         }
 
@@ -87,6 +88,7 @@ const GalleryList = ({ contentHeight = '100%' }) => {
 
         return () => {
             document.removeEventListener('toast', listener)
+            clearTimeout(timoutId)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
