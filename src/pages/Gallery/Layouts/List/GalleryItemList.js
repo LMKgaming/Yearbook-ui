@@ -9,10 +9,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faImage } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import config from '~/config';
+import { downloadImage } from '~/functions';
 
 const cx = classNames.bind(styles);
 
-const GalleryItemList = ({index, image, name, id = '', size, pressP = false }) => {
+const GalleryItemList = ({ index, image, name, id = '', size, pressP = false }) => {
     const navigate = useNavigate();
     const { width, height, isHorizontal } = useViewport();
     const [naturalSize, setNaturalSize] = useState({
@@ -25,11 +26,10 @@ const GalleryItemList = ({index, image, name, id = '', size, pressP = false }) =
     });
     const [hovered, setHovered] = useState(false);
     const debouncedHovered = useDebounce(hovered, 500);
+
     const handleMouseEnter = () => setHovered(true);
     const handleMouseLeave = () => setHovered(false);
-    const handleClickItem = () => {
-        navigate(config.routes.galleryItem.replace(':id', `${id}&${index}`));
-    };
+    const handleClickItem = () => navigate(config.routes.galleryItem.replace(':id', `${id}&${index}`));
 
     const callbackNaturalSize = (width, height) => setNaturalSize((prev) => ({ ...prev, width, height }));
 
@@ -44,7 +44,7 @@ const GalleryItemList = ({index, image, name, id = '', size, pressP = false }) =
             let imageHeight = (imageWidth * naturalSize.height) / naturalSize.width;
             setImageSizeCurrent((prev) => ({ ...prev, width: imageWidth, height: imageHeight }));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [width, height, naturalSize.width, naturalSize.height]);
 
     return (
@@ -69,7 +69,14 @@ const GalleryItemList = ({index, image, name, id = '', size, pressP = false }) =
                 <Text className={cx('content-item-content')} content={name} />
                 <Text className={cx('content-item-size')} content={`${Math.round(size * 100) / 100} MB`} />
                 <div className={cx('content-item-action')}>
-                    <Button className={cx('content-action-item')} name={<FontAwesomeIcon icon={faDownload} />} />
+                    <Button
+                        className={cx('content-action-item')}
+                        name={<FontAwesomeIcon icon={faDownload} />}
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            downloadImage({dataCurrent: {Id: id, Name: name}, usingSubtitle: true})
+                        }}
+                    />
                 </div>
             </div>
         </>

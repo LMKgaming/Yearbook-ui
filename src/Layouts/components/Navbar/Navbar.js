@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import styles from './Navbar.module.scss';
 import Button from '~/components/Button';
 import config from '~/config';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { convertToSentenceCase } from '~/functions';
@@ -29,8 +29,8 @@ const returnCurrentNav = (nav, to) => {
     // console.log('to', to);
     let foundNav = nav.findIndex((data) => (data.to.includes(':') ? false : data.to === to));
     // console.log(foundNav);
-    let prevNav = foundNav - 1 > 0 && nav[foundNav - 1].to.includes(':') ? foundNav - 2 : foundNav - 1
-    let nextNav = foundNav + 1 < nav.length - 1 && nav[foundNav + 1].to.includes(':') ? foundNav + 2 : foundNav + 1
+    let prevNav = foundNav - 1 > 0 && nav[foundNav - 1].to.includes(':') ? foundNav - 2 : foundNav - 1;
+    let nextNav = foundNav + 1 < nav.length - 1 && nav[foundNav + 1].to.includes(':') ? foundNav + 2 : foundNav + 1;
     return (
         <div
             style={{
@@ -65,21 +65,19 @@ const returnCurrentNav = (nav, to) => {
 
 const Navbar = ({ model }) => {
     const location = useLocation();
-    const { id } = useParams();
-    // console.log('pathname',location.pathname)
-    // console.log('id', id);
+
+    const processPathname = (currentPathname) => {
+        let filterArr = currentPathname.split('/')
+        if (filterArr.every(elem => elem.length === 0)) return '/'
+        while (filterArr[0].length === 0) filterArr.shift()
+        if (filterArr.length > 1) return '/' + filterArr[0]
+        else return '/' + filterArr.join('')
+    };
 
     return (
         <div className={cx('middle-nav-group')}>
             {model === 'mobile' || model === 'mini-tablet'
-                ? returnCurrentNav(
-                      navData,
-                      id
-                          ? location.pathname.replace(`/${id}`, '')
-                          : location.pathname.length !== 1 && location.pathname.endsWith('/')
-                          ? location.pathname.split('/').slice(0, location.pathname.split('/').length - 1).join('/')
-                          : location.pathname,
-                  )
+                ? returnCurrentNav(navData, processPathname(location.pathname))
                 : navData.map((nav, index) =>
                       nav.to.includes(':') ? (
                           <Fragment key={index} />
@@ -88,7 +86,9 @@ const Navbar = ({ model }) => {
                               key={index}
                               name={nav.name}
                               to={nav.to}
-                              className={cx('nav-btn')}
+                              className={cx('nav-btn', {
+                                active: nav.to === location.pathname
+                              })}
                               contentCss={cx('nav-content')}
                           />
                       ),

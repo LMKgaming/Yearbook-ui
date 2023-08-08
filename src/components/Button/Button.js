@@ -22,6 +22,7 @@ const Button = forwardRef(
         rounded,
         border,
         className,
+        rightIconOnClickOnly = () => {},
         ...props
     }, ref) => {
         let Type = 'button';
@@ -72,7 +73,7 @@ const Button = forwardRef(
             <Type ref={ref} className={classes} {...prop}>
                 {leftIcon && <span className={leftIconClasses}>{leftIcon}</span>}
                 <span className={contentClasses}>{name}</span>
-                {rightIcon && <span className={rightIconClasses}>{rightIcon}</span>}
+                {rightIcon && <span className={rightIconClasses} onClick={rightIconOnClickOnly}>{rightIcon}</span>}
             </Type>
         );
     },

@@ -15,6 +15,7 @@ import VideoList from './Layouts/List';
 import VideoGrid from './Layouts/Grid';
 import { changeTypeVideo } from '~/redux/defaultSettingsSlice';
 import { motion } from 'framer-motion';
+import { toastConfig } from '~/components/Toast';
 
 const cx = classNames.bind(styles);
 
@@ -27,7 +28,6 @@ const dataServer = [
 ];
 
 const Video = () => {
-    // const [dataServer, setDataServer] = useState([]);
     const [contentHeight, setContentHeight] = useState(0);
     const { id } = useParams();
     const isList = useSelector(typeShowVideo);
@@ -39,6 +39,22 @@ const Video = () => {
     const handleClickChangeShow = () => {
         dispatch(changeTypeVideo(!isList));
     };
+
+    useEffect(() => {
+        // toastConfig.successToast('Test','test', 5000)
+        // let percent = 0
+        // let id = toastConfig.percentToast('Downloading...', 'Waiting for export data from server...', percent, true);
+        // let intervalId = setInterval(() => {
+        //     if (percent > 100) {
+        //         clearInterval(intervalId)
+        //         percent = 0
+        //     } else {
+        //         // console.log(percent)
+        //         toastConfig.setPercentToast(id, percent)
+        //         percent++
+        //     }
+        // }, 50);
+    }, []);
 
     useEffect(() => {
         // console.log(wrapperRef);

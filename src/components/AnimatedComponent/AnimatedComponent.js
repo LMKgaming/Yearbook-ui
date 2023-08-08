@@ -10,6 +10,7 @@ const AnimatedComponent = () => {
         <AnimatePresence mode="wait">
             <Routes key={location.pathname} location={location}>
                 {publicRoutes.map((route, index) => {
+                    const includeSearch = route.includeSearch || false
                     const Page = route.component;
                     let Layout = Fragment;
                     if (route.layout && route.layout !== null) {
@@ -20,7 +21,7 @@ const AnimatedComponent = () => {
                             key={index}
                             path={route.path}
                             element={
-                                <Layout>
+                                <Layout includeSearch={includeSearch}>
                                     <Page />
                                 </Layout>
                             }

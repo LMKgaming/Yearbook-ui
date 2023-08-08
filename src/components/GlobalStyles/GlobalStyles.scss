@@ -6,6 +6,7 @@
 :root  {
     --header-height: 60px;
     --header-margin: 15px;
+    --margin-top: calc(var(--header-height) * 80 / 100 + 5px * 2);
     --margin-top-mobile: calc(var(--header-height) * 60 / 100 + 5px * 2);
 
     --main-color: #00214b;
@@ -114,5 +115,53 @@ body {
     100% {
         opacity: 0;
         transform: translateY(51vh);
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        opacity: 0.5;
+        transform: translateX(calc(100% + 10px));
+    }
+    80% {
+        opacity: 1;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    80% {
+        opacity: 0.9;
+        transform: translateX(-20px);
+    }
+    100% {
+        opacity: 0.5;
+        transform: translateX(calc(100% + 10px));
+    }
+}
+
+@keyframes progressDecrease {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
+    }
+}
+
+@keyframes progressIncrease {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
     }
 }

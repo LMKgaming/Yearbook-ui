@@ -73,25 +73,42 @@
         color: #ccc;
         opacity: 1;
         border-color: #ccc;
+        scale: 1;
+    }
+    15% {
+        scale: 1.10;
     }
     25% {
         color: #fff;
         opacity: 0.75;
         border-color: #fff;
+        scale: 1.15;
+    }
+    40% {
+        scale: 1.05;
     }
     50% {
         color: #777;
         opacity: 0.8;
         border-color: #999;
+        scale: 0.85;
+    }
+    60% {
+        scale: 0.95;
     }
     75% {
         color: #aaa;
         opacity: 0.75;
         border-color: #aaa;
+        scale: 0.65;
+    }
+    90% {
+        scale: 0.95;
     }
     100% {
         color: #ddd;
         opacity: 1;
         border-color: #ddd;
+        scale: 1;
     }
 }

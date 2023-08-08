@@ -15,15 +15,18 @@ import SnowButton from '~/components/SnowButton/SnowButton';
 
 const cx = classNames.bind(styles);
 
-const DefaultLayout = ({ children }) => {
+const DefaultLayout = ({ includeSearch = false, children }) => {
     const viewport = useViewport();
     const snowActive = useSelector(snowSelector);
     const countSnow = useSelector(snowCountSelector);
 
     return (
-        <div className={cx('default-layout')} style={{
-            height: `${viewport.height}em`
-        }}>
+        <div
+            className={cx('default-layout')}
+            style={{
+                height: `${viewport.height}em`,
+            }}
+        >
             <div className={cx('header')}>
                 <Button
                     name={<Image src={images.logo} className={cx('logo')} />}
@@ -32,7 +35,7 @@ const DefaultLayout = ({ children }) => {
                     contentCss={cx('logo-content')}
                 />
                 <div className={cx('header-middle-group')}>
-                    <Search model={typeDevice(viewport.width)} />
+                    {includeSearch && <Search model={typeDevice(viewport.width)} />}
                     <Navbar model={typeDevice(viewport.width)} />
                 </div>
                 <Text

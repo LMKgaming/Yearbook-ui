@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useViewport } from '~/hooks';
 import { motion } from 'framer-motion';
+import { toastConfig } from '~/components/Toast';
 
 const cx = classNames.bind(styles);
 
@@ -98,6 +99,16 @@ const Home = () => {
         return () => clearInterval(slideInterval);
     }, [imageSize]);
 
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            toastConfig.infoToast('Welcome', 'Thank you for using our services', 5000)
+        }, 1000);
+
+        return () => {
+            clearTimeout(timeoutId)
+        }
+    }, [])
+
     return (
         <motion.div
             className={cx('wrapper')}
@@ -118,11 +129,6 @@ const Home = () => {
                 content={'>>> Press Enter <<<'}
                 className={cx('slide-enter')}
                 to={config.routes.gallery}
-                isMotional={true}
-                initial={{ scale: [0.8, 0.85, 0.9] }}
-                animate={{ scale: [1, 1.05, 1.1, 1.15] }}
-                exit={{ scale: [0.9, 0.95] }}
-                transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.1, repeatType: 'reverse' }}
             />
         </motion.div>
     );

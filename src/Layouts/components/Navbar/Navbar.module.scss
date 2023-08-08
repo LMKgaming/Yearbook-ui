@@ -23,6 +23,15 @@
 
 .nav-btn {
     color: #ccc;
+
+    &.active {
+        color: #47d864;
+        .nav-content {
+            &::after {
+                background-color: #47d864;
+            }
+        }
+    }
 }
 
 .nav-content {
@@ -41,7 +50,7 @@
 
     &:hover {
         &::after {
-            width: calc(100% + 20px);
+            width: calc(100% + 10px * 2);
         }
     }
 }

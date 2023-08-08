@@ -22,13 +22,16 @@ import { useViewport } from '~/hooks';
 import config from '~/config';
 import images from '~/assets/images';
 import Loader from '~/components/Loader';
+import { useNavigate } from 'react-router-dom';
+import { downloadImage } from '~/functions';
 // import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const PopupImage = ({ id, index, dataServer = [] }) => {
     const dataCurrent = index ? dataServer[index - 1] : dataServer.find((data) => data.Id === id);
-    console.log(dataCurrent);
+    // console.log(dataCurrent);
+    const navigate = useNavigate();
     const [showInfoImage, setShowInfoImage] = useState(false);
     const [naturalSize, setNaturalSize] = useState({
         width: 0,
@@ -44,11 +47,6 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
 
     const handleClickMoreOption = () => setShowInfoImage(true);
     const handleClickXMark = () => setShowInfoImage(false);
-
-    const handleClickDownload = () => {
-        alert('This feature is being in progress !!');
-    };
-
     const handleClickNavBtn = () => setIsLoading(true);
 
     const callbackNaturalSize = (width, height) => {
@@ -56,7 +54,25 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
         setIsLoading(false);
     };
 
-    console.log();
+    useEffect(() => {
+        const listener = (e) => {
+            if (
+                e.target.closest('#group-action') ||
+                e.target.closest('#action-btn') ||
+                e.target.closest('#image-box') ||
+                e.target.closest('#bottom-action')
+            )
+                return;
+            navigate(config.routes.gallery);
+        };
+
+        document.addEventListener('mousedown', listener);
+
+        return () => {
+            document.removeEventListener('mousedown', listener);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         if (naturalSize.width === 0 || naturalSize.height === 0) return;
@@ -86,7 +102,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
             }}
         >
             <div className={cx('top-action')}>
-                <div className={cx('group-left')}>
+                <div className={cx('group-left')} id="group-action">
                     {[{ icon: faArrowLeft }, { icon: faImage }].map((data, index) => (
                         <Button
                             key={index}
@@ -97,11 +113,11 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                     ))}
                     <Text className={cx('text')} content={dataCurrent?.Name || 'Missing Name'} />
                 </div>
-                <div className={cx('group-right')}>
+                <div className={cx('group-right')} id="group-action">
                     <Button
                         className={cx('button')}
                         name={<FontAwesomeIcon icon={faDownload} />}
-                        onClick={handleClickDownload}
+                        onClick={() => downloadImage(dataCurrent)}
                     />
                     <Button
                         className={cx('button')}
@@ -113,6 +129,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
             <div className={cx('main-content')} ref={mainContentRef}>
                 {+dataCurrent.Index !== 1 && (
                     <Button
+                        id="action-btn"
                         className={cx('button', 'content-btn-l')}
                         name={<FontAwesomeIcon icon={faChevronLeft} />}
                         to={config.routes.galleryItem.replace(
@@ -128,6 +145,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                     </div>
                 )}
                 <div
+                    id="image-box"
                     className={cx('main-content-image-box')}
                     style={{
                         width: imageSize.width,
@@ -142,7 +160,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                     />
                 </div>
                 {showInfoImage && (
-                    <div className={cx('content-info-contain')}>
+                    <div className={cx('content-info-contain')} id="info-box">
                         <div className={cx('content-info-header')}>
                             <Text className={cx('text', 'info-title')} content={'More'} />
                             <Button
@@ -174,6 +192,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                 )}
                 {+dataCurrent.Index !== dataServer.length && (
                     <Button
+                        id="action-btn"
                         className={cx('button', 'content-btn-r')}
                         name={<FontAwesomeIcon icon={faChevronRight} />}
                         to={config.routes.galleryItem.replace(
@@ -184,7 +203,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                     />
                 )}
             </div>
-            <div className={cx('bottom-action')}>
+            <div className={cx('bottom-action')} id="bottom-action">
                 <Button className={cx('button')} name={<FontAwesomeIcon icon={faMinus} />} />
                 <Button className={cx('button')} name={<FontAwesomeIcon icon={faMagnifyingGlassMinus} />} />
                 <Button className={cx('button')} name={<FontAwesomeIcon icon={faPlus} />} />

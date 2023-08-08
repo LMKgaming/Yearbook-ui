@@ -1,11 +1,15 @@
 import { BrowserRouter as Router } from 'react-router-dom';
 import AnimatedComponent from './components/AnimatedComponent';
+import Toast from './components/Toast';
 
 function App() {
     return (
-        <Router>
-            <AnimatedComponent />
-        </Router>
+        <>
+            <Toast />
+            <Router>
+                <AnimatedComponent />
+            </Router>
+        </>
     );
 }
 

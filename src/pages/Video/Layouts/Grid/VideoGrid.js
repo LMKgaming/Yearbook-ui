@@ -77,7 +77,7 @@ const VideoGrid = ({ data = [], contentHeight = '100%' }) => {
             >
                 {data.map((data, index) => (
                     <VideoItemGrid
-                        key={index}
+                        key={data.Id || index}
                         name={data.Name}
                         video={data.URL || data.video}
                         id={data.Id}

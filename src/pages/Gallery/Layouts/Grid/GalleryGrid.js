@@ -1,11 +1,14 @@
 import classNames from 'classnames/bind';
 import styles from './GalleryGrid.module.scss';
 import GalleryItemGrid from './GalleryItemGrid';
-import { useEffect, useRef, useState } from 'react';
-import { useViewport } from '~/hooks';
+import { memo, useEffect, useRef, useState } from 'react';
+import { useDebounce, useViewport } from '~/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faShare } from '@fortawesome/free-solid-svg-icons';
 import ContextMenu from '~/components/ContextMenu/ContextMenu';
+import { useDispatch, useSelector } from 'react-redux';
+import { galleryOption } from '~/redux/selector';
+import { updateScrollGridPosGallery } from '~/redux/defaultSettingsSlice';
 
 const cx = classNames.bind(styles);
 
@@ -24,10 +27,15 @@ const contextMenu = [
     },
 ];
 
-const GalleryGrid = ({ data = [], contentHeight = '100%' }) => {
+const GalleryGrid = ({ contentHeight = '100%' }) => {
+    const { dataServer: data, scrollGridPos } = useSelector(galleryOption);
     const [openContextMenu, setOpenContextMenu] = useState(false);
     const contextRef = useRef();
     const viewport = useViewport();
+    const [scrollTop, setScrollTop] = useState(0);
+    const debounceScrollTop = useDebounce(scrollTop, 500);
+    const contentRef = useRef();
+    const dispatch = useDispatch();
 
     const handleClickOnContextMenu = (item) => {
         if (typeof item.onClick !== 'function') return;
@@ -61,6 +69,47 @@ const GalleryGrid = ({ data = [], contentHeight = '100%' }) => {
         };
     }, []);
 
+    useEffect(() => {
+        const elem = contentRef.current;
+        let isAwaiting = false;
+        let timeoutId = undefined;
+        const listener = () => {
+            if (isAwaiting) {
+                clearTimeout(timeoutId);
+            } else {
+                isAwaiting = true;
+            }
+            timeoutId = setTimeout(() => {
+                // console.log(elem.scrollTop);
+                isAwaiting = false;
+                timeoutId = undefined;
+                setScrollTop(elem.scrollTop);
+            }, 800);
+        };
+
+        elem?.addEventListener('scroll', listener);
+        return () => {
+            elem?.removeEventListener('scroll', listener);
+        };
+    }, []);
+
+    useEffect(() => {
+        dispatch(updateScrollGridPosGallery(debounceScrollTop));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [debounceScrollTop]);
+
+    useEffect(() => {
+        contentRef.current.scrollTo({
+            top: scrollGridPos,
+            behavior: 'smooth',
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        console.log(contentRef)
+    }, [])
+
     return (
         <>
             <ContextMenu
@@ -70,12 +119,13 @@ const GalleryGrid = ({ data = [], contentHeight = '100%' }) => {
                 onChange={handleClickOnContextMenu}
             />
             <div
+                ref={contentRef}
                 className={cx('content')}
                 style={{
                     height: contentHeight,
                 }}
             >
-                {data.map((data) => (
+                {data.slice(0, 20).map((data) => (
                     <GalleryItemGrid
                         key={data.Id}
                         index={data.Index}
@@ -90,4 +140,4 @@ const GalleryGrid = ({ data = [], contentHeight = '100%' }) => {
     );
 };
 
-export default GalleryGrid;
+export default memo(GalleryGrid);

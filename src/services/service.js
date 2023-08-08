@@ -10,3 +10,12 @@ export const getServerData = async () => {
         console.log(error)
     }
 }
+
+export const getImageData = async (url, options = {}) => {
+    try {
+        const response = await request.freeGet(url, options)
+        return response
+    } catch (error) {
+        console.log(error)
+    }
+}

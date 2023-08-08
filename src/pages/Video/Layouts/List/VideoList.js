@@ -14,7 +14,7 @@ const VideoList = ({ data = [], contentHeight = '100%' }) => {
         >
             {data.map((data, index) => (
                 <VideoItemList
-                    key={data.Id}
+                    key={data.Id || index}
                     name={data.Name}
                     image={data.URL}
                     id={data.Id}

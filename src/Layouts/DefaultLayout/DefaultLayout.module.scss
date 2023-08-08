@@ -50,7 +50,7 @@
     .header-middle-group {
         display: flex;
         flex: 1;
-        margin: 0 10%;
+        margin: 0 9%;
 
         @include mobile {
             margin: 0 1%;
@@ -60,6 +60,10 @@
         @include mini-tablet {
             margin: 0 1%;
             position: relative;
+        }
+
+        @include tablet {
+            margin: 0 3%;
         }
     }
 
@@ -81,7 +85,6 @@
 }
 
 .main {
-    --margin-top: calc(var(--header-height) * 80 / 100 + 5px * 2);
     margin-top: var(--margin-top);
     height: calc(100% - var(--margin-top));
     overflow: hidden;
