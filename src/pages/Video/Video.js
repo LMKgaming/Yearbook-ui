@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleUp, faTableCells, faTableList } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { typeShowVideo } from '~/redux/selector';
 import videos from '~/assets/videos';
@@ -29,7 +29,7 @@ const dataServer = [
 
 const Video = () => {
     const [contentHeight, setContentHeight] = useState(0);
-    const { id } = useParams();
+    const [searchParams] = useSearchParams()
     const isList = useSelector(typeShowVideo);
     const dispatch = useDispatch();
     const viewport = useViewport();
@@ -68,7 +68,7 @@ const Video = () => {
 
     return (
         <>
-            {id && (
+            {(searchParams.get('id') || searchParams.get('index')) && (
                 <PopupVideo
                     name={'video-name'}
                     video={'https://drive.google.com/file/d/1cjfiH1pkUj6sPrn8HPm7D72idaCpKlnq/view?usp=drive_link'}

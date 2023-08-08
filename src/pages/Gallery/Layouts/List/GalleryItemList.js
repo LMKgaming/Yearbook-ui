@@ -7,14 +7,13 @@ import Text from '~/components/Text';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faImage } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import config from '~/config';
+import { useSearchParams } from 'react-router-dom';
 import { downloadImage } from '~/functions';
 
 const cx = classNames.bind(styles);
 
 const GalleryItemList = ({ index, image, name, id = '', size, pressP = false }) => {
-    const navigate = useNavigate();
+    const [, setSearchParams] = useSearchParams()
     const { width, height, isHorizontal } = useViewport();
     const [naturalSize, setNaturalSize] = useState({
         width: 0,
@@ -29,7 +28,7 @@ const GalleryItemList = ({ index, image, name, id = '', size, pressP = false }) 
 
     const handleMouseEnter = () => setHovered(true);
     const handleMouseLeave = () => setHovered(false);
-    const handleClickItem = () => navigate(config.routes.galleryItem.replace(':id', `${id}&${index}`));
+    const handleClickItem = () => setSearchParams({id, index});
 
     const callbackNaturalSize = (width, height) => setNaturalSize((prev) => ({ ...prev, width, height }));
 

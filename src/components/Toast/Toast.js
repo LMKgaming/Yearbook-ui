@@ -19,11 +19,14 @@ const defaultObjectType = ({ id, type, title, msg, duration, decrease, percent, 
 
 const toastConfig = {};
 
+const closeEvent = new CustomEvent('toast', { detail: { isClosed: true } });
+
 const Toast = ({ stackToast = false, ...props }) => {
     const [toastData, setToastData] = useState([]);
     const containerRef = useRef();
 
     const handleCallbackAnimationEnd = (id) => {
+        document.dispatchEvent(closeEvent)
         setToastData((prev) => prev.filter((p) => p.id !== id));
     };
 

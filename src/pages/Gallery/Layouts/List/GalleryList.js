@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { galleryOption } from '~/redux/selector';
 import { updateScrollListPosGallery } from '~/redux/defaultSettingsSlice';
 import { useDebounce } from '~/hooks';
+import { toastConfig } from '~/components/Toast';
 
 const cx = classNames.bind(styles);
 
@@ -69,10 +70,24 @@ const GalleryList = ({ contentHeight = '100%' }) => {
     }, [debounceScrollTop]);
 
     useEffect(() => {
-        contentRef.current.scrollTo({
-            top: scrollListPos,
-            behavior: 'smooth',
-        });
+        toastConfig.infoToast('Auto Scroll Message', 'Auto scroll will work after 5s', 4000)
+
+        let timoutId = setTimeout(() => {
+            contentRef.current.scrollTo({
+                top: scrollListPos,
+                behavior: 'smooth',
+            });
+        }, 5000);
+
+        const listener = (e) => {
+            clearTimeout(timoutId)
+        }
+
+        document.addEventListener('toast', listener)
+
+        return () => {
+            document.removeEventListener('toast', listener)
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

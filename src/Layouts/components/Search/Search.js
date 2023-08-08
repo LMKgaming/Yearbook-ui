@@ -22,8 +22,6 @@ const Input = ({ isDisplaying = true }) => {
     const dispatch = useDispatch();
     const location = useLocation();
 
-    console.log(isDisplaying)
-
     const handleInput = (event) => {
         let value = event.target.value;
         setSearchValue(value);
