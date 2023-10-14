@@ -4,7 +4,6 @@ import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Image from '~/components/Image';
-import images from '~/assets/images';
 import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
 import Text from '~/components/Text';
@@ -31,20 +30,11 @@ const InfoLine = ({ title, content, capitalize = false }) => {
     );
 };
 
-// const slideImage = [
-//     { image: images.image_6 },
-//     { image: images.image_6 },
-//     { image: images.image_6 },
-//     { image: images.image_6 },
-//     { image: images.image_6 },
-//     { image: images.image_6 },
-// ];
-
 const PopupData = ({ id, scoreData = [], groupData = [] }) => {
     const { dataServer } = useSelector(galleryOption);
     const { dataServer: tagServer } = useSelector(tagSearch);
     const [slideImage, setSlideImage] = useState([]);
-    const [userData, setUserData] = useState(() => ({
+    const [userData] = useState(() => ({
         ...scoreData.find((p) => p.id === id),
     }));
     console.log(userData);
@@ -56,7 +46,7 @@ const PopupData = ({ id, scoreData = [], groupData = [] }) => {
         width: 0,
         height: 0,
     });
-    const [isLoading, setIsLoading] = useState(true);
+    const [, setIsLoading] = useState(true);
     const [currentView, setCurrentView] = useState('information');
     const [currentSlide, setCurrentSlide] = useState(0);
     const { width, height, isHorizontal } = useViewport();
@@ -97,6 +87,7 @@ const PopupData = ({ id, scoreData = [], groupData = [] }) => {
         let customSlideImage = arrImage.map((p) => ({ image: p.URLWebp }));
         setSlideImage(customSlideImage);
         console.log('customSlideImage', customSlideImage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

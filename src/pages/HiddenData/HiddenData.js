@@ -37,7 +37,7 @@ const HiddenData = () => {
     const [viewType, setViewType] = useState(actionBtnData[0].value);
     const [showDeleteBtn, setShowDeleteBtn] = useState();
     const [groupData, setGroupData] = useState([]);
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const ListRef = useRef();
     const wrapperRef = useRef();
     const timeoutIdRef = useRef();

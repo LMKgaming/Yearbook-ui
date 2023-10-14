@@ -14,19 +14,10 @@ import VideoList from './Layouts/List';
 import VideoGrid from './Layouts/Grid';
 import { changeTypeVideo, updateDataVideo } from '~/redux/defaultSettingsSlice';
 import { motion } from 'framer-motion';
-import { toastConfig } from '~/components/Toast';
 import { getServerData } from '~/services/service';
 import Loader from '~/components/Loader/Loader';
 
 const cx = classNames.bind(styles);
-
-// const dataServer = [
-//     { Name: 'video-name', video: videos.video_1, Size: 10909088, Id: 123 },
-//     { Name: 'video-name', video: videos.video_1, Size: 21382332 },
-//     { Name: 'video-name', video: videos.video_1, Size: 109094242 },
-//     { Name: 'video-name', video: videos.video_1, Size: 6729393 },
-//     { Name: 'video-name', video: videos.video_1, Size: 101628793 },
-// ];
 
 const Video = () => {
     const [contentHeight, setContentHeight] = useState(0);
@@ -53,10 +44,6 @@ const Video = () => {
         if (dataServer.length !== 0) setIsLoading(false);
         else getData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        // toastConfig.percentToast('Test', 'test', 50, true)
     }, []);
 
     useEffect(() => {

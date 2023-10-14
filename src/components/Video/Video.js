@@ -6,7 +6,6 @@ import Text from '~/components/Text';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faArrowRotateLeft,
-    faCheck,
     faClosedCaptioning,
     faCompress,
     faExpand,
