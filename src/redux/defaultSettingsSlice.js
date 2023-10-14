@@ -1,13 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+import config from '~/config';
 
 const defaultSettingsSlice = createSlice({
     name: 'defaultSettings',
     initialState: {
         snow: false,
-        countSnow: 200,
+        countSnow: config.defaultSettings.defaultCountSnow,
         history: {
             searchValue: [],
             searchTag: []
+        },
+        searchOptions: {
+            searchType: config.defaultSettings.searchType[0]
         },
         gallery: {
             dataServer: [],
@@ -18,8 +22,12 @@ const defaultSettingsSlice = createSlice({
             searchTag: [],
         },
         video: {
+            dataServer: [],
             list: true,
         },
+        tags: {
+            dataServer: []
+        }
     },
     reducers: {
         snowUpdate: (state, action) => {
@@ -27,6 +35,10 @@ const defaultSettingsSlice = createSlice({
         },
         snowCountUpdate: (state, action) => {
             state.countSnow = +action.payload;
+        },
+        changeSearchType: (state, action) => {
+            if (!config.defaultSettings.searchType.includes(action.payload)) return
+            state.searchOptions.searchType = action.payload
         },
         changeTypeGallery: (state, action) => {
             state.gallery.list = !!action.payload;
@@ -43,7 +55,7 @@ const defaultSettingsSlice = createSlice({
         setSearchValueGallery: (state, action) => {
             state.gallery.searchValue = String(action.payload)
             if (action.payload.length === 0) return
-            if (state.history.searchValue.length > 4) state.history.searchValue.shift()
+            if (state.history.searchValue.length > config.defaultSettings.maxSearchHistorySaving - 1) state.history.searchValue.shift()
             let index = state.history.searchValue.indexOf(String(action.payload))
             if (index !== -1) state.history.searchValue.splice(index, 1)
             state.history.searchValue.push(String(action.payload))
@@ -71,7 +83,8 @@ const defaultSettingsSlice = createSlice({
                     state.history.searchValue = state.history.searchValue.filter(p => p !== String(action.payload.value))
                     break;
                 case 'tagSave':
-                    state.history.searchTag.push(...action.payload.value)
+                    let filterArr = action.payload.value.filter((tag) => !state.history.searchTag.includes(tag))
+                    state.history.searchTag.push(...filterArr)
                     break
                 case 'tagClear':
                     state.history.searchTag = []
@@ -86,12 +99,19 @@ const defaultSettingsSlice = createSlice({
         changeTypeVideo: (state, action) => {
             state.video.list = !!action.payload;
         },
+        updateDataVideo: (state, action) => {
+            state.video.dataServer = action.payload;
+        },
+        updateDataTag: (state, action) => {
+            state.tags.dataServer = action.payload
+        }
     },
 });
 
 export const {
     snowUpdate,
     snowCountUpdate,
+    changeSearchType,
     changeTypeGallery,
     changeTypeVideo,
     updateDataGallery,
@@ -99,6 +119,8 @@ export const {
     updateScrollListPosGallery,
     setSearchValueGallery,
     setSearchTagGallery,
-    updateHistory
+    updateHistory,
+    updateDataVideo,
+    updateDataTag
 } = defaultSettingsSlice.actions;
 export default defaultSettingsSlice;

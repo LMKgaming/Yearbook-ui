@@ -1,11 +1,16 @@
+import { formatSheetData } from '~/functions';
 import * as request from '~/utils/httpRequest';
 
-export const getServerData = async () => {
+export const getServerData = async (id ,range = 'Sheet1') => {
     try {
-        console.log(process.env.REACT_APP_SHEET_ID_SHEET_BEST)
-        const response = await request.get(`/${process.env.REACT_APP_SHEET_ID_SHEET_BEST}`)
-        console.log(response)
-        return response || []
+        // console.log(process.env.REACT_APP_SHEET_IMAGE_ID)
+        const response = await request.get(`${id}/values/${range}`, {
+            params: {
+                key: process.env.REACT_APP_API_KEY,
+            }
+        })
+        // console.log(response)
+        return formatSheetData(response.values) || []
     } catch (error) {
         console.log(error)
     }

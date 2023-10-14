@@ -9,7 +9,7 @@ const downloadImage = async ({
 }) => {
     let toastId = toastConfig.percentToast(title, msg, 0, usingSubtitle);
     const getImage = await getImageData(dataCurrent.Id, {
-        baseURL: 'https://www.googleapis.com/drive/v3/files/',
+        baseURL: process.env.REACT_APP_BASE_DOWNLOAD_URL,
         params: {
             key: process.env.REACT_APP_API_KEY,
             alt: 'media',

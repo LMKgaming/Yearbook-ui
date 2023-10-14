@@ -56,6 +56,33 @@
     color: #ccc;
 }
 
+.search-info-tag {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translate(0, -50%);
+    font-size: 1.2rem;
+    padding: 0 10px;
+    background-color: #66666666;
+    border-radius: 5px;
+    color: #aaa;
+    user-select: none;
+    cursor: text;
+
+    @include mobile {
+        z-index: 10;
+        font-size: 1rem;
+        padding: 0 5px;
+        opacity: 0.75;
+    }
+
+    @include mini-tablet {
+        right: 8%;
+        z-index: 10;
+        font-size: 1rem;
+    }
+}
+
 .search-info {
     position: absolute;
     top: calc(100% + 5px);
@@ -64,7 +91,8 @@
     padding: 10px;
     background-color: #1a202c;
     border-radius: 8px;
-    border: 1px solid #2f86eb;
+    border: 1px solid var(--best-color, #2f86eb);
+    transition: all .3s ease;
 
     &::before {
         content: '';
@@ -75,7 +103,7 @@
         top: -7.5px;
         left: 5%;
         rotate: 45deg;
-        border: 1px solid #2f86eb;
+        border: 1px solid var(--best-color, #2f86eb);
 
         @include mobile {
             width: 10px;
@@ -89,6 +117,44 @@
     }
 }
 
+.search-tag-wrapper {
+    position: relative;
+}
+
+.search-tag-switch {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 50px;
+    color: #fff;
+    font-size: 1.4rem;
+    padding: 2px 8px;
+    border: 1px solid var(--best-color, #2f86eb);
+    border-radius: 5px;
+    transition: all .5s ease;
+
+    &:hover {
+        background-color: var(--best-color, #2f86eb);
+    }
+
+    @include mobile {
+        width: 35px;
+        font-size: 1.2rem;
+        padding: 2px 4px;
+    }
+
+    @include mini-tablet {
+        width: 40px;
+        font-size: 1.2rem;
+        padding: 2px 6px;
+    }
+}
+
+.search-tag-switch-content {
+    color: inherit;
+    font-size: inherit;
+}
+
 .search-tag-title {
     color: #ccc;
     font-size: 2rem;
@@ -98,8 +164,8 @@
     text-rendering: optimizeSpeed;
     letter-spacing: normal;
     margin-bottom: 5px;
-    border-bottom: 1px solid #2f86eb;
-    transition: all 0.2s ease;
+    border-bottom: 1px solid var(--best-color, #2f86eb);
+    transition: all .2s ease;
 
     &.recent {
         margin-top: 5px;
@@ -165,7 +231,7 @@
     max-width: calc(100% - 10px);
     display: inline-block;
     border-radius: 2px 10px;
-    border-bottom: 2px solid #2f86eb;
+    border-bottom: 2px solid var(--best-color, #2f86eb);
     margin: 5px;
     background-color: #2d3848;
     color: #81e5d9;

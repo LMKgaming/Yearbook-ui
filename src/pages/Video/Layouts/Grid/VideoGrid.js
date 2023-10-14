@@ -6,6 +6,8 @@ import { useViewport } from '~/hooks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faShare } from '@fortawesome/free-solid-svg-icons';
 import ContextMenu from '~/components/ContextMenu/ContextMenu';
+import { useSelector } from 'react-redux';
+import { videoOption } from '~/redux/selector';
 
 const cx = classNames.bind(styles);
 
@@ -24,10 +26,11 @@ const contextMenu = [
     },
 ];
 
-const VideoGrid = ({ data = [], contentHeight = '100%' }) => {
+const VideoGrid = ({ contentHeight = '100%' }) => {
     const [openContextMenu, setOpenContextMenu] = useState(false);
     const contextRef = useRef();
     const viewport = useViewport();
+    const {dataServer: data} = useSelector(videoOption)
 
     const handleClickOnContextMenu = (item) => {
         if (typeof item.onClick !== 'function') return;
@@ -79,7 +82,7 @@ const VideoGrid = ({ data = [], contentHeight = '100%' }) => {
                     <VideoItemGrid
                         key={data.Id || index}
                         name={data.Name}
-                        video={data.URL || data.video}
+                        video={data.Id || data.video}
                         id={data.Id}
                         handleContextMenu={handleContextMenu}
                     />

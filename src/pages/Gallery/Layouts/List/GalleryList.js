@@ -3,7 +3,7 @@ import styles from './GalleryList.module.scss';
 import GalleryItemList from './GalleryItemList';
 import { memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { galleryOption } from '~/redux/selector';
+import { galleryOption, searchOptions, tagSearch } from '~/redux/selector';
 import { updateScrollListPosGallery } from '~/redux/defaultSettingsSlice';
 import { useDebounce } from '~/hooks';
 import { toastConfig } from '~/components/Toast';
@@ -11,7 +11,9 @@ import { toastConfig } from '~/components/Toast';
 const cx = classNames.bind(styles);
 
 const GalleryList = ({ contentHeight = '100%' }) => {
-    const { dataServer: data, scrollListPos, searchValue } = useSelector(galleryOption);
+    const { dataServer: data, scrollListPos, searchValue, searchTag } = useSelector(galleryOption);
+    const { dataServer: tagServer } = useSelector(tagSearch);
+    const { searchType } = useSelector(searchOptions);
     const [pressP, setPressP] = useState(false);
     const [scrollTop, setScrollTop] = useState(0);
     const debounceScrollTop = useDebounce(scrollTop, 500);
@@ -65,12 +67,20 @@ const GalleryList = ({ contentHeight = '100%' }) => {
     }, []);
 
     useEffect(() => {
+        (!!searchValue.length || !!searchTag.length) &&
+            contentRef.current.scrollTo({
+                top: 0,
+                behavior: 'smooth',
+            });
+    }, [searchValue, searchTag, searchType]);
+
+    useEffect(() => {
         dispatch(updateScrollListPosGallery(debounceScrollTop));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debounceScrollTop]);
 
     useEffect(() => {
-        toastConfig.infoToast('Auto Scroll Message', 'Auto scroll will work after 5s', 4000)
+        toastConfig.infoToast('Auto Scroll Message', 'Auto scroll will work after 5s', 4000);
 
         let timoutId = setTimeout(() => {
             contentRef.current.scrollTo({
@@ -80,46 +90,79 @@ const GalleryList = ({ contentHeight = '100%' }) => {
         }, 5000);
 
         const listener = (e) => {
-            console.log(e)
-            clearTimeout(timoutId)
-        }
+            console.log(e);
+            clearTimeout(timoutId);
+        };
 
-        document.addEventListener('toast', listener)
+        document.addEventListener('toast', listener);
 
         return () => {
-            document.removeEventListener('toast', listener)
-            clearTimeout(timoutId)
-        }
+            document.removeEventListener('toast', listener);
+            clearTimeout(timoutId);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const render = () => {
-        if (searchValue.length !== 0) {
-            const newData = data.filter(p => p.Name.includes(searchValue))
-            return newData.map((data) => (
-                <GalleryItemList
-                    key={data.Id}
-                    index={data.Index}
-                    name={data.Name}
-                    image={data.URLWebp || data.URL}
-                    id={data.Id}
-                    size={data.Size / 1024 ** 2}
-                    pressP={pressP}
-                />
-            ))
-        }
-        return data.map((data) => (
+    const renderUI = (dataReceive, showTag = false) => {
+        return dataReceive.map((data) => (
             <GalleryItemList
                 key={data.Id}
                 index={data.Index}
                 name={data.Name}
                 image={data.URLWebp || data.URL}
+                tags={data.Tags}
+                tagsData={tagServer}
+                sortedTags={searchTag}
                 id={data.Id}
                 size={data.Size / 1024 ** 2}
+                showTag={showTag}
                 pressP={pressP}
             />
-        ))
-    }
+        ));
+    };
+
+    const render = () => {
+        if (!searchTag.length && !searchValue.length) return renderUI(data, false);
+        let renderData = [];
+        if (!!searchTag.length) {
+            renderData = data.filter((p) => {
+                let tagSplitted = p.Tags.split(',')
+                if (searchType === "AND") {
+                    //AND
+                    for (const tag of searchTag) {
+                        let findIndex = tagServer.find((p) => p.Tags.split(',').includes(tag))?.Id;
+                        if (tag === 'All' && !findIndex) findIndex = '0';
+                        if (!tagSplitted.includes(findIndex)) return false
+                    }
+                    return true
+                } else if (searchType === "OR") {
+                    //OR
+                    for (const tag of searchTag) {
+                        let findIndex = tagServer.find((p) => p.Tags.split(',').includes(tag))?.Id;
+                        if (tag === 'All' && !findIndex) findIndex = '0';
+                        if (tagSplitted.includes(findIndex)) return true;
+                    }
+                    return false;
+                } else {
+                    //NOT
+                    for (const tag of searchTag) {
+                        let findIndex = tagServer.find((p) => p.Tags.split(',').includes(tag))?.Id;
+                        if (tag === 'All' && !findIndex) findIndex = '0';
+                        if (findIndex && tagSplitted.includes('0')) return false;
+                        if (tagSplitted.includes(findIndex)) return false;
+                    }
+                    return true;
+                }
+            });
+            // renderData = renderData.concat(data.filter(p => p.Tags.includes('0')))
+        }
+        if (!!searchValue.length) {
+            renderData = !!renderData.length
+                ? renderData.filter((p) => p.Name.includes(searchValue))
+                : data.filter((p) => p.Name.includes(searchValue));
+        }
+        return renderUI(renderData, true);
+    };
 
     return (
         <div

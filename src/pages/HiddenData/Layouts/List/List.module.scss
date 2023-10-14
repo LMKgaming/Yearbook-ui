@@ -1,0 +1,101 @@
+@import '../../../../components/GlobalStyles/Mixin.scss';
+
+.action-group,
+.content {
+    padding: 0 calc(var(--header-margin) + 5px + var(--snow-icon-size) * 100 / 100 * 2);
+
+    @include mobile {
+        padding: 0 calc(var(--header-margin) / 5 + var(--snow-icon-size) * 80 / 100 * 2);
+    }
+
+    @include mini-tablet {
+        padding: 0 calc(var(--header-margin) / 5 + var(--snow-icon-size) * 80 / 100 * 2);
+    }
+}
+
+.action-custom-group {
+    display: flex;
+    flex-wrap: wrap;
+    height: 45px;
+    overflow: overlay;
+    position: relative;
+    transition: all .3s ease;
+
+    &::-webkit-scrollbar {
+        border-radius: 0;
+        width: 0;
+    }
+}
+
+.action-custom-btn {
+    min-width: 4%;
+    margin: 5px;
+    height: calc(100% - 5px * 2);
+    background-color: #06a9ae;
+    opacity: 0.4;
+    color: #333;
+    text-transform: capitalize;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+
+    &.show {
+        background-color: #838bed;
+        opacity: 0.8;
+    }
+
+    &:hover {
+        background-color: #fbb579;
+        opacity: 0.75;
+    }
+}
+
+.content {
+    overflow: overlay;
+    padding-bottom: 15px;
+}
+
+//List Item
+.list-item-wrapper {
+    display: flex;
+    color: #ccc;
+    padding: 5px 0;
+    border-bottom: 2px solid #cccccc33;
+}
+
+.list-item {
+    flex: 1;
+    color: inherit;
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: 500;
+    cursor: default;
+
+    &.sort {
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    &.upper {
+        color: #ffc021;
+    }
+
+    &.lower {
+        color: #2f86eb;
+    }
+
+    &.item-id {
+        flex: 1;
+        text-align: justify;
+    }
+
+    &.item-name {
+        flex: 3;
+        text-align: justify;
+    }
+}
+
+.list-item-content {
+    flex: 1;
+    font-size: 1.6rem;
+    font-weight: inherit;
+}

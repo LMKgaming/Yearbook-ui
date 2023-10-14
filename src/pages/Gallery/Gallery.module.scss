@@ -2,10 +2,10 @@
 
 .wrapper {
     // overflow: overlay;
+    position: relative;
     height: 100%;
 }
 
-.content-title,
 .action-group,
 .content {
     padding: 0 calc(var(--header-margin) + 5px + var(--snow-icon-size) * 100 / 100 * 2);
@@ -38,6 +38,7 @@
         font-weight: 400;
     }
 }
+
 .action-group {
     display: flex;
     justify-content: space-between;
@@ -307,7 +308,8 @@
 }
 
 //Loader
-.loader, .popup-loader {
+.loader,
+.popup-loader {
     margin: 0 auto;
     width: 80px;
     height: 80px;

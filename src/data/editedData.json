@@ -1,0 +1,452 @@
+[
+    {
+        "id": "02078581",
+        "name": "Lê Thúy An",
+        "math": "7.40",
+        "literature": "6.00",
+        "english": "5.40",
+        "physics": "1.50",
+        "chemistry": "8.00",
+        "biology": "8.25"
+    },
+    {
+        "id": "02078616",
+        "name": "Nguyễn Việt Hoàng Anh",
+        "math": "8.80",
+        "literature": "6.00",
+        "english": "9.20",
+        "physics": "6.50",
+        "chemistry": "5.50",
+        "biology": "7.50"
+    },
+    {
+        "id": "02078625",
+        "name": "Võ Hồng Tú Anh",
+        "math": "8.80",
+        "literature": "6.25",
+        "english": "9.80",
+        "physics": "7.50",
+        "chemistry": "9.75",
+        "biology": "6.50"
+    },
+    {
+        "id": "02078641",
+        "name": "Trần Hồng Ân",
+        "math": "8.00",
+        "literature": "4.75",
+        "english": "6.00",
+        "physics": "5.50",
+        "chemistry": "7.75",
+        "biology": "8.50"
+    },
+    {
+        "id": "02078660",
+        "name": "Lê Như Bình",
+        "math": "8.00",
+        "literature": "6.00",
+        "english": "9.20",
+        "physics": "7.50",
+        "chemistry": "7.25",
+        "biology": "7.50"
+    },
+    {
+        "id": "02078681",
+        "name": "Nguyễn Hà Chi",
+        "math": "8.20",
+        "literature": "8.50",
+        "english": "9.40",
+        "physics": "6.00",
+        "chemistry": "7.25",
+        "biology": "7.50"
+    },
+    {
+        "id": "02078734",
+        "name": "Nguyễn Ngọc Thanh Dương",
+        "math": "8.20",
+        "literature": "8.00",
+        "english": "9.80",
+        "physics": "5.25",
+        "chemistry": "7.50",
+        "biology": "7.50"
+    },
+    {
+        "id": "02078756",
+        "name": "Trần Lê Phúc Đạt",
+        "math": "8.40",
+        "literature": "7.50",
+        "english": "8.60",
+        "physics": "7.75",
+        "chemistry": "9.50",
+        "biology": "8.25"
+    },
+    {
+        "id": "02078768",
+        "name": "Đoàn Việt Đức",
+        "math": "7.60",
+        "literature": "8.00",
+        "english": "9.20",
+        "history": "9.50",
+        "geography": "8.25",
+        "gdcd": "9.50"
+    },
+    {
+        "id": "02078778",
+        "name": "Trần Thị Hương Giang",
+        "math": "7.60",
+        "literature": "7.00",
+        "english": "6.00",
+        "physics": "7.00",
+        "chemistry": "7.00",
+        "biology": "6.50"
+    },
+    {
+        "id": "02078841",
+        "name": "Phạm Nguyễn Mai Hoa",
+        "math": "7.40",
+        "literature": "8.00",
+        "english": "9.00",
+        "physics": "5.75",
+        "chemistry": "6.00",
+        "biology": "6.25"
+    },
+    {
+        "id": "02078859",
+        "name": "Bùi Thị Ánh Hồng",
+        "math": "7.80",
+        "literature": "7.00",
+        "english": "9.40",
+        "physics": "5.25",
+        "chemistry": "6.50",
+        "biology": "5.75"
+    },
+    {
+        "id": "02078941",
+        "name": "Lê Minh Khoa",
+        "math": "8.60",
+        "literature": "6.50",
+        "english": "8.60",
+        "physics": "8.75",
+        "chemistry": "8.00",
+        "biology": "8.25"
+    },
+    {
+        "id": "02078957",
+        "name": "Nguyễn Hồ Minh Khôi",
+        "math": "8.60",
+        "literature": "7.00",
+        "english": "7.80",
+        "physics": "8.50",
+        "chemistry": "8.75",
+        "biology": "7.00"
+    },
+    {
+        "id": "02078974",
+        "name": "Nguyễn Vũ Tuấn Kiệt",
+        "math": "7.80",
+        "literature": "7.75",
+        "english": "8.00",
+        "physics": "8.25",
+        "chemistry": "7.75",
+        "biology": "5.00"
+    },
+    {
+        "id": "02078975",
+        "name": "Phan Tuấn Kiệt",
+        "math": "7.40",
+        "literature": "6.25",
+        "english": "8.60",
+        "physics": "7.75",
+        "chemistry": "6.25",
+        "biology": "4.25"
+    },
+    {
+        "id": "02078990",
+        "name": "Vũ Thành Lam",
+        "math": "8.00",
+        "literature": "6.50",
+        "english": "9.00",
+        "physics": "8.75",
+        "chemistry": "7.75",
+        "biology": "7.00"
+    },
+    {
+        "id": "02079046",
+        "name": "Phạm Đức Mạnh",
+        "math": "7.80",
+        "literature": "6.00",
+        "english": "8.80",
+        "physics": "8.75",
+        "chemistry": "4.00",
+        "biology": "4.25"
+    },
+    {
+        "id": "02079055",
+        "name": "Nguyễn Hữu Trường Minh",
+        "math": "8.20",
+        "literature": "7.75",
+        "english": "7.00",
+        "physics": "8.25",
+        "chemistry": "7.25",
+        "biology": "7.00"
+    },
+    {
+        "id": "02079061",
+        "name": "Trịnh Lê Minh",
+        "math": "9.20",
+        "literature": "7.00",
+        "english": "9.80",
+        "physics": "9.00",
+        "chemistry": "6.25",
+        "biology": "5.75"
+    },
+    {
+        "id": "02079065",
+        "name": "Nguyễn Thị Trà My",
+        "math": "7.00",
+        "literature": "8.00",
+        "english": "7.40",
+        "physics": "7.00",
+        "chemistry": "7.00",
+        "biology": "7.75"
+    },
+    {
+        "id": "02079078",
+        "name": "Nguyễn Lê Nam",
+        "math": "8.20",
+        "literature": "6.50",
+        "english": "7.00",
+        "physics": "6.75",
+        "chemistry": "9.00",
+        "biology": "5.75"
+    },
+    {
+        "id": "02079093",
+        "name": "Liêu Ngọc Ngân",
+        "math": "7.60",
+        "literature": "7.50",
+        "english": "8.00",
+        "physics": "8.50",
+        "chemistry": "7.75",
+        "biology": "6.75"
+    },
+    {
+        "id": "02079177",
+        "name": "Nguyễn Đắc Nghĩa",
+        "math": "8.40",
+        "literature": "6.75",
+        "english": "9.80",
+        "physics": "8.50",
+        "chemistry": "7.50",
+        "biology": "7.75"
+    },
+    {
+        "id": "02079183",
+        "name": "Bùi Trí Nguyên",
+        "math": "7.80",
+        "literature": "8.50",
+        "english": "9.40",
+        "physics": "7.50",
+        "chemistry": "7.75",
+        "biology": "8.75"
+    },
+    {
+        "id": "02079250",
+        "name": "Nguyễn Thị Phương Oanh",
+        "math": "8.20",
+        "literature": "8.00",
+        "english": "9.20",
+        "history": "7.50",
+        "geography": "8.50",
+        "gdcd": "8.50"
+    },
+    {
+        "id": "02079313",
+        "name": "Nguyễn Chu Nguyệt Quế",
+        "math": "8.40",
+        "literature": "8.25",
+        "english": "9.40",
+        "physics": "7.75",
+        "chemistry": "7.75",
+        "biology": "6.50"
+    },
+    {
+        "id": "02079333",
+        "name": "Trần Phước Sang",
+        "math": "9.00",
+        "literature": "8.25",
+        "english": "9.60",
+        "physics": "7.75",
+        "chemistry": "6.25",
+        "biology": "7.00"
+    },
+    {
+        "id": "02079334",
+        "name": "Trần Quang Sáng",
+        "math": "7.60",
+        "literature": "7.00",
+        "english": "5.00",
+        "physics": "4.75",
+        "chemistry": "9.00",
+        "biology": "9.50"
+    },
+    {
+        "id": "02079335",
+        "name": "Nguyễn Công Sơn",
+        "math": "8.40",
+        "literature": "7.50",
+        "english": "7.20",
+        "physics": "5.00",
+        "chemistry": "8.25",
+        "biology": "8.00"
+    },
+    {
+        "id": "02079386",
+        "name": "Đinh Hồng Thắm",
+        "math": "7.40",
+        "literature": "6.25",
+        "english": "8.60",
+        "physics": "6.25",
+        "chemistry": "8.00",
+        "biology": "4.00"
+    },
+    {
+        "id": "02079409",
+        "name": "Võ Phạm Hoàng Thơ",
+        "math": "8.20",
+        "literature": "8.25",
+        "english": "9.40",
+        "physics": "5.50",
+        "chemistry": "9.00",
+        "biology": "9.25"
+    },
+    {
+        "id": "02079449",
+        "name": "Nguyễn Trần Minh Thư",
+        "math": "7.00",
+        "literature": "8.00",
+        "english": "8.60",
+        "physics": "5.75",
+        "chemistry": "5.50",
+        "biology": "8.00"
+    },
+    {
+        "id": "02079450",
+        "name": "Phạm Minh Thư",
+        "math": "7.40",
+        "literature": "6.50",
+        "english": "7.60",
+        "physics": "8.25",
+        "chemistry": "8.25",
+        "biology": "7.25"
+    },
+    {
+        "id": "02079476",
+        "name": "Trần Thị Thủy Tiên",
+        "math": "7.60",
+        "literature": "6.50",
+        "english": "8.60",
+        "physics": "8.25",
+        "chemistry": "6.50",
+        "biology": "6.25"
+    },
+    {
+        "id": "02079478",
+        "name": "Lê Thành Tiến",
+        "math": "9.00",
+        "literature": "6.75",
+        "english": "9.20",
+        "physics": "8.00",
+        "chemistry": "8.50",
+        "biology": "8.00"
+    },
+    {
+        "id": "02079483",
+        "name": "Võ Minh Tiến",
+        "math": "8.60",
+        "literature": "6.75",
+        "english": "7.60",
+        "physics": "7.50",
+        "chemistry": "6.75",
+        "biology": "7.50"
+    },
+    {
+        "id": "02079503",
+        "name": "La Thị Thiên Trang",
+        "math": "7.40",
+        "literature": "7.50",
+        "english": "9.00",
+        "physics": "7.75",
+        "chemistry": "7.25",
+        "biology": "7.25"
+    },
+    {
+        "id": "02079520",
+        "name": "Lê Thị Bích Trâm",
+        "math": "8.20",
+        "literature": "7.25",
+        "english": "5.80",
+        "physics": "7.25",
+        "chemistry": "8.00",
+        "biology": "7.50"
+    },
+    {
+        "id": "02079532",
+        "name": "Đặng Thị Quế Trân",
+        "math": "8.80",
+        "literature": "7.50",
+        "english": "9.20",
+        "physics": "9.00",
+        "chemistry": "6.25",
+        "biology": "7.25"
+    },
+    {
+        "id": "02079535",
+        "name": "Hoàng Ngọc Bảo Trân",
+        "math": "7.60",
+        "literature": "7.50",
+        "english": "9.20",
+        "physics": "9.00",
+        "chemistry": "8.25",
+        "biology": "6.25"
+    },
+    {
+        "id": "02079548",
+        "name": "Lưu Đức Minh Trí",
+        "math": "7.80",
+        "literature": "6.75",
+        "english": "9.00",
+        "physics": "8.25",
+        "chemistry": "2.50",
+        "biology": "3.75"
+    },
+    {
+        "id": "02079576",
+        "name": "Nguyễn Thành Trung",
+        "math": "8.60",
+        "literature": "6.25",
+        "english": "7.40",
+        "physics": "9.50",
+        "chemistry": "9.25",
+        "biology": "7.25"
+    },
+    {
+        "id": "02079661",
+        "name": "Mai Lưu Yến Vy",
+        "math": "8.20",
+        "literature": "8.00",
+        "english": "9.60",
+        "history": "7.75",
+        "geography": "8.50",
+        "gdcd": "9.75"
+    },
+    {
+        "id": "02079686",
+        "name": "Nguyễn Thị Như Ý",
+        "math": "8.80",
+        "literature": "7.00",
+        "english": "6.60",
+        "physics": "7.00",
+        "chemistry": "7.50",
+        "biology": "6.75"
+    }
+]

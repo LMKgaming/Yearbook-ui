@@ -8,12 +8,21 @@ import { faFacebookF, faGoogleDrive } from '@fortawesome/free-brands-svg-icons';
 import Button from '~/components/Button';
 import { faAt } from '@fortawesome/free-solid-svg-icons';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
 const teamData = [
     { image: images.sang, name: 'Trần Phước Sang', role: 'Owner' },
-    { image: images.khoa, name: 'Lê Minh Khoa', role: 'Tester' },
+    {
+        image: images.khoa,
+        name: 'Lê Minh Khoa',
+        role: 'Developer',
+        onClick(navigate) {
+            navigate(config.hiddenRoutes.hiddenData)
+        },
+    },
     { image: images.minh, name: 'Trịnh Lê Minh', role: 'Tester' },
 ];
 
@@ -48,6 +57,8 @@ const contactData = [
 ];
 
 const Contact = () => {
+    const navigate = useNavigate();
+
     return (
         <motion.div
             className={cx('wrapper')}
@@ -56,12 +67,10 @@ const Contact = () => {
             exit={{ opacity: 0.5, x: '100vw' }}
             transition={{ duration: 0.25 }}
         >
-            <div
-                className={cx('left')}
-            >
+            <div className={cx('left')}>
                 <Text className={cx('member-title')} content={'Cảm ơn các cộng tác viên đã hỗ trợ dự án'} />
                 {teamData.map((data, index) => (
-                    <div key={index} className={cx('member-info')}>
+                    <div key={index} className={cx('member-info')} onClick={() => data.onClick && data.onClick(navigate)}>
                         <div className={cx('member-image-box')}>
                             <Image className={cx('member-image')} src={data.image} />
                         </div>
@@ -70,9 +79,7 @@ const Contact = () => {
                     </div>
                 ))}
             </div>
-            <div
-                className={cx('right')}
-            >
+            <div className={cx('right')}>
                 <Text className={cx('text', 'summary')} content={'Thống kê'} />
                 <Text className={cx('text', 'gap')} content={''} />
                 <Text className={cx('text', 'summary')} content={'Publish: 03/07/2023'} />
@@ -80,9 +87,7 @@ const Contact = () => {
                 <Text className={cx('text', 'summary', 'gg-drive')} content={'Nguồn: Google Drive'} />
                 <FontAwesomeIcon icon={faGoogleDrive} color="#ccc" />
             </div>
-            <div
-                className={cx('group-contact-info')}
-            >
+            <div className={cx('group-contact-info')}>
                 <Text className={cx('contact-text')} content={'Mọi thắc mắc xin liên hệ về địa chi:'} />
                 {contactData.map((data, index) => (
                     <Button

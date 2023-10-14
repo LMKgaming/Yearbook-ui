@@ -48,7 +48,7 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
     const handleClickXMark = () => setShowInfoImage(false);
     const handleClickNavBtn = (to) => {
         if (to === 'prev') {
-            setSearchParams({id: dataServer[+dataCurrent?.Index].Id,index: +dataCurrent?.Id - 1})
+            setSearchParams({id: dataServer[+dataCurrent?.Index].Id,index: +dataCurrent?.Index - 1})
         } else if (to === 'next') {
             setSearchParams({id: dataServer[+dataCurrent?.Index].Id, index: +dataCurrent?.Index + 1})
         }
@@ -66,7 +66,8 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
                 e.target.closest('#group-action') ||
                 e.target.closest('#action-btn') ||
                 e.target.closest('#image-box') ||
-                e.target.closest('#bottom-action')
+                e.target.closest('#bottom-action') ||
+                e.target.closest('#info-box')
             )
                 return;
             navigate(config.routes.gallery);
@@ -89,6 +90,10 @@ const PopupImage = ({ id, index, dataServer = [] }) => {
             if (imageWidth > mainContentRef.current.offsetWidth - 25 * 2) {
                 imageHeight = imageHeight - 20 * 2;
                 imageWidth = (imageHeight * naturalSize.width) / naturalSize.height;
+            }
+            if (imageWidth > width * 16 - 25 * 2) {
+                imageWidth = mainContentRef.current.offsetWidth - 25 * 2;
+                imageHeight = (imageWidth * naturalSize.height) / naturalSize.width;
             }
             setImageSize((prev) => ({ ...prev, height: imageHeight, width: imageWidth }));
         } else {

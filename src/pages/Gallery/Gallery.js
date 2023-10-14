@@ -33,7 +33,7 @@ const Gallery = () => {
 
     useEffect(() => {
         const getData = async () => {
-            const response = await getServerData();
+            const response = await getServerData(process.env.REACT_APP_SHEET_IMAGE_ID);
             if (response) {
                 setIsLoading(false);
                 dispatch(updateDataGallery(response));

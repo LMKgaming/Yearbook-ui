@@ -8,30 +8,31 @@ import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { typeShowVideo } from '~/redux/selector';
-import videos from '~/assets/videos';
+import { videoOption } from '~/redux/selector';
 import PopupVideo from './PopupVideo';
 import VideoList from './Layouts/List';
 import VideoGrid from './Layouts/Grid';
-import { changeTypeVideo } from '~/redux/defaultSettingsSlice';
+import { changeTypeVideo, updateDataVideo } from '~/redux/defaultSettingsSlice';
 import { motion } from 'framer-motion';
 import { toastConfig } from '~/components/Toast';
-// import { toastConfig } from '~/components/Toast';
+import { getServerData } from '~/services/service';
+import Loader from '~/components/Loader/Loader';
 
 const cx = classNames.bind(styles);
 
-const dataServer = [
-    { Name: 'video-name', video: videos.video_1, Size: 10909088, Id: 123 },
-    { Name: 'video-name', video: videos.video_1, Size: 21382332 },
-    { Name: 'video-name', video: videos.video_1, Size: 109094242 },
-    { Name: 'video-name', video: videos.video_1, Size: 6729393 },
-    { Name: 'video-name', video: videos.video_1, Size: 101628793 },
-];
+// const dataServer = [
+//     { Name: 'video-name', video: videos.video_1, Size: 10909088, Id: 123 },
+//     { Name: 'video-name', video: videos.video_1, Size: 21382332 },
+//     { Name: 'video-name', video: videos.video_1, Size: 109094242 },
+//     { Name: 'video-name', video: videos.video_1, Size: 6729393 },
+//     { Name: 'video-name', video: videos.video_1, Size: 101628793 },
+// ];
 
 const Video = () => {
     const [contentHeight, setContentHeight] = useState(0);
-    const [searchParams] = useSearchParams()
-    const isList = useSelector(typeShowVideo);
+    const [searchParams] = useSearchParams();
+    const [isLoading, setIsLoading] = useState(true);
+    const { dataServer, list: isList } = useSelector(videoOption);
     const dispatch = useDispatch();
     const viewport = useViewport();
     const wrapperRef = useRef();
@@ -42,23 +43,20 @@ const Video = () => {
     };
 
     useEffect(() => {
-        toastConfig.percentToast('Test', 'test', 50, true)
-    }, [])
+        const getData = async () => {
+            const response = await getServerData(process.env.REACT_APP_SHEET_VIDEO_ID);
+            if (response) {
+                setIsLoading(false);
+                dispatch(updateDataVideo(response));
+            }
+        };
+        if (dataServer.length !== 0) setIsLoading(false);
+        else getData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
-        // toastConfig.successToast('Test','test', 5000)
-        // let percent = 0
-        // let id = toastConfig.percentToast('Downloading...', 'Waiting for export data from server...', percent, true);
-        // let intervalId = setInterval(() => {
-        //     if (percent > 100) {
-        //         clearInterval(intervalId)
-        //         percent = 0
-        //     } else {
-        //         // console.log(percent)
-        //         toastConfig.setPercentToast(id, percent)
-        //         percent++
-        //     }
-        // }, 50);
+        // toastConfig.percentToast('Test', 'test', 50, true)
     }, []);
 
     useEffect(() => {
@@ -105,10 +103,15 @@ const Video = () => {
                         />
                     </div>
                 </div>
-                {isList ? (
-                    <VideoList contentHeight={contentHeight} data={dataServer} />
+
+                {isLoading ? (
+                    <div className={cx('loader')}>
+                        <Loader />
+                    </div>
+                ) : isList ? (
+                    <VideoList contentHeight={contentHeight} />
                 ) : (
-                    <VideoGrid contentHeight={contentHeight} data={dataServer} />
+                    <VideoGrid contentHeight={contentHeight} />
                 )}
             </motion.div>
         </>

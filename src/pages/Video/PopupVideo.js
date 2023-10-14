@@ -9,20 +9,16 @@ import {
     faCheck,
     faChevronLeft,
     faChevronRight,
-    faClosedCaptioning,
     faDownload,
     faEllipsisVertical,
-    faExpand,
     faFilm,
-    faGear,
-    faObjectGroup,
-    faPlay,
-    faVolumeHigh,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import { useViewport } from '~/hooks';
 import config from '~/config';
+import Loader from '~/components/Loader/Loader';
+import videos from '~/assets/videos';
 // import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
@@ -39,13 +35,15 @@ const PopupVideo = ({ id, name, video }) => {
     });
     const mainContentRef = useRef();
     const { width, height, isHorizontal } = useViewport();
-
-    console.log(naturalSize, videoSize)
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleClickMoreOption = () => setShowInfoVideo(true);
     const handleClickXMark = () => setShowInfoVideo(false);
 
-    const callbackResolution = (width, height) => setNaturalSize({ width, height });
+    const callbackResolution = (width, height) => {
+        setNaturalSize({ width, height });
+        setIsLoading(false);
+    };
 
     useEffect(() => {
         if (naturalSize.width === 0 || naturalSize.height === 0) return;
@@ -56,6 +54,10 @@ const PopupVideo = ({ id, name, video }) => {
             if (videoWidth > mainContentRef.current.offsetWidth - 25 * 2) {
                 videoHeight = videoHeight - 20 * 2;
                 videoWidth = (videoHeight * naturalSize.width) / naturalSize.height;
+            }
+            if (videoWidth > width * 16 - 25 * 2) {
+                videoWidth = mainContentRef.current.offsetWidth - 25 * 2;
+                videoHeight = (videoWidth * naturalSize.height) / naturalSize.width;
             }
             setVideoSize((prev) => ({ ...prev, height: videoHeight, width: videoWidth }));
         } else {
@@ -101,30 +103,30 @@ const PopupVideo = ({ id, name, video }) => {
             </div>
             <div className={cx('main-content')} ref={mainContentRef}>
                 <Button className={cx('button', 'content-btn-l')} name={<FontAwesomeIcon icon={faChevronLeft} />} />
+                {isLoading && (
+                    <div className={cx('popup-loader')}>
+                        <Loader />
+                    </div>
+                )}
                 <div
                     className={cx('main-content-video-box')}
-                    style={{ width: videoSize.width, height: videoSize.height }}
+                    style={{
+                        width: videoSize.width,
+                        height: videoSize.height,
+                        visibility: !isLoading ? 'visible' : 'hidden',
+                    }}
                 >
-                    <Video className={cx('main-content-video')} src={video} callbackResolution={callbackResolution} />
-                    <div className={cx('controls-group')}>
-                        <div className={cx('time-line')}>
-
-                        </div>
-                        <div className={cx('controls-btn')}>
-                            <div className={cx('controls-left')}>
-                                <Button name={<FontAwesomeIcon icon={faPlay}/>}/>
-                                <Button name={<FontAwesomeIcon icon={faVolumeHigh}/>}/>
-                                <input type='range' max={100} min={0} step={1} defaultValue={100}/>
-                                <Text content={'0:00 / 2:20'}/>
-                            </div>
-                            <div className={cx('controls-right')}>
-                                <Button name={<FontAwesomeIcon icon={faClosedCaptioning}/>}/>
-                                <Button name={<FontAwesomeIcon icon={faGear}/>}/>
-                                <Button name={<FontAwesomeIcon icon={faObjectGroup}/>}/>
-                                <Button name={<FontAwesomeIcon icon={faExpand}/>}/>
-                            </div>
-                        </div>
-                    </div>
+                    <Video
+                        className={cx('main-content-video')}
+                        src={
+                            // 'https://www.googleapis.com/drive/v3/files/1cjfiH1pkUj6sPrn8HPm7D72idaCpKlnq?key=AIzaSyC84ctq7PNv-_G6ca6kFL4IIIA0ESab6I0&alt=media'
+                            videos.video_1
+                        }
+                        width={600}
+                        height={400}
+                        callbackResolution={callbackResolution}
+                        customControl
+                    />
                 </div>
                 {showInfoVideo && (
                     <div className={cx('content-info-contain')}>

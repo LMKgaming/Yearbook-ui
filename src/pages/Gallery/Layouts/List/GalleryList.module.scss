@@ -17,11 +17,12 @@
 
 //GalleryItemList
 .content-item-wrapper {
+    --pad-top-val: 15px;
     flex: 1;
     display: flex;
     align-items: center;
     max-height: 75px;
-    padding: 15px 20px;
+    padding: var(--pad-top-val) 20px;
     transition: all 0.15s ease;
     z-index: 0;
     cursor: pointer;
@@ -35,7 +36,7 @@
     }
 
     @include mobile {
-        padding: 5px 2px;
+        padding: calc(var(--pad-top-val) * 1 / 3) 2px;
     }
 }
 
@@ -68,6 +69,48 @@
         font-size: 1.8rem;
         white-space: nowrap;
         padding: 0 15px;
+    }
+}
+
+.content-item-tags {
+    max-width: calc((80px + 5px) * 3.5);
+    text-align: right;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.content-item-tag {
+    display: inline-block;
+    justify-content: stretch;
+    font-size: 1.4rem;
+    padding: 0 5px 0 0;
+    position: relative;
+    color: #ccc;
+    text-align: justify;
+
+    + .content-item-tag {
+        margin: 0;
+    }
+
+    &::before {
+        content: ",";
+        position: absolute;
+        top: 0;
+        right: calc(5px / 2);
+    }
+
+    &.last {
+        &::before {
+            content: "";
+        }
+    }
+
+    &.sorted {
+        color: #47d864;
+    }
+
+    &:hover {
+        text-decoration: underline currentColor;
     }
 }
 

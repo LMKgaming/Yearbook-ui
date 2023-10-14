@@ -4,16 +4,13 @@ import Text from '~/components/Text';
 import Button from '~/components/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload, faFilm } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate } from 'react-router-dom';
-import config from '~/config';
+import { useSearchParams } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 const VideoItemList = ({ image, name, id = '', size }) => {
-    const navigate = useNavigate();
-    const handleClickItem = () => {
-        navigate(config.routes.videoItem.replace(':id', id));
-    };
+    const [, setSearchParams] = useSearchParams()
+    const handleClickItem = () => setSearchParams({id})
 
     return (
         <>

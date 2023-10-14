@@ -1,7 +1,7 @@
 import config from '~/config';
 
 import { DefaultLayout } from '~/Layouts';
-import { Home, Contact, Video, Gallery } from '~/pages';
+import { Home, Contact, Video, Gallery, HiddenData } from '~/pages';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home, layout: DefaultLayout },
@@ -11,4 +11,8 @@ const publicRoutes = [
     { path: '*', component: Home, layout: DefaultLayout },
 ];
 
-export { publicRoutes };
+const privateRoutes = [
+    { path: config.hiddenRoutes.hiddenData, component: HiddenData, layout: DefaultLayout, includeSearch: true },
+]
+
+export { publicRoutes, privateRoutes };

@@ -25,6 +25,7 @@ const navData = (() => {
 
 const returnCurrentNav = (nav, to) => {
     let foundNav = nav.findIndex((data) => data.to === to);
+    foundNav = foundNav === -1 ? 0 : foundNav
     let prevNav = foundNav - 1 >= 0 ? foundNav - 1 : 0;
     let nextNav = foundNav + 1 <= nav.length - 1 ? foundNav + 1 : nav.length - 1;
     return (

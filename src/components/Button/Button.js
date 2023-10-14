@@ -4,27 +4,32 @@ import { Link } from 'react-router-dom';
 import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
+const defaultFn = () => {};
 
 const Button = forwardRef(
-    ({
-        small,
-        medium,
-        large,
-        name,
-        leftIcon,
-        rightIcon,
-        leftIconCss,
-        rightIconCss,
-        contentCss,
-        to,
-        href,
-        status,
-        rounded,
-        border,
-        className,
-        rightIconOnClickOnly = () => {},
-        ...props
-    }, ref) => {
+    (
+        {
+            small,
+            medium,
+            large,
+            name,
+            leftIcon,
+            rightIcon,
+            leftIconCss,
+            rightIconCss,
+            contentCss,
+            to,
+            href,
+            status,
+            rounded,
+            border,
+            className,
+            rightIconOnClickOnly = defaultFn,
+            leftIconOnClickOnly = defaultFn,
+            ...props
+        },
+        ref,
+    ) => {
         let Type = 'button';
 
         const prop = {
@@ -71,9 +76,29 @@ const Button = forwardRef(
 
         return (
             <Type ref={ref} className={classes} {...prop}>
-                {leftIcon && <span className={leftIconClasses}>{leftIcon}</span>}
+                {leftIcon && (
+                    <span
+                        className={leftIconClasses}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            leftIconOnClickOnly(e);
+                        }}
+                    >
+                        {leftIcon}
+                    </span>
+                )}
                 <span className={contentClasses}>{name}</span>
-                {rightIcon && <span className={rightIconClasses} onClick={rightIconOnClickOnly}>{rightIcon}</span>}
+                {rightIcon && (
+                    <span
+                        className={rightIconClasses}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            rightIconOnClickOnly(e);
+                        }}
+                    >
+                        {rightIcon}
+                    </span>
+                )}
             </Type>
         );
     },
